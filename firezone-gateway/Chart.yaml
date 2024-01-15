@@ -1,0 +1,9 @@
+# yamllint disable rule:line-length
+---
+apiVersion: v2
+name: firezone-gateway
+version: 0.1.0
+appVersion: "1.0.0"
+type: application
+description: A Helm chart for deploying a firezone gateway
+icon: https://raw.githubusercontent.com/firezone/firezone/main/website/public/images/logo-main.svg

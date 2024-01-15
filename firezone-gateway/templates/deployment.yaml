@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "firezone-gateway.fullname" . }}
+  labels:
+    {{- include "firezone-gateway.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "firezone-gateway.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "firezone-gateway.labels" . | nindent 8 }}
+	      {{- with .Values.podLabels }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "firezone-gateway.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            {{- toYaml .Values.envFrom | nindent 12 }}
+          env:
+            - name: FIREZONE_API_URL
+              value: {{ .Values.config.apiUrl }}
+            - name: FIREZONE_NAME
+              value: {{ .Chart.Name }}
+            - name: FIREZONE_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ required "Missing required secret containing the firezone id. Make sure to set `config.id.secret`" .Values.config.id.secretName }}
+                  key: {{ .Values.config.id.key }}
+            - name: FIREZONE_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ required "Missing required secret containing the firezone token. Make sure to set `config.token.secret`" .Values.config.token.secretName }}
+                  key: {{ .Values.config.token.key }}
+            {{- if .Values.enableMasquerade}}
+            - name: FIREZONE_ENABLE_MASQUERADE
+              value: 1
+            {{- end }}
+            - name: RUST_LOG
+              value: {{ .Values.logLevel }}
+            {{- with .Values.extraEnv }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - '-c'
+                - ip link | grep tun-firezone
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - '-c'
+                - ip link | grep tun-firezone
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

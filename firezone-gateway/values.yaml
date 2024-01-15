@@ -1,0 +1,51 @@
+# yamllint disable rule:line-length
+---
+image:
+  repository: us-east1-docker.pkg.dev/firezone-prod/firezone/gateway
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+logLevel: trace
+config:
+  apiUrl: wss://api.firezone.dev
+  enableMasquerade: true
+  # Token provided to you by firezone
+  token:
+    secretName:
+    key: FIREZONE_TOKEN
+  # UUID used to identify the gateway
+  id:
+    secretName:
+    key: FIREZONE_ID
+
+envFrom: []
+extraEnv: []
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext: {}
+securityContext:
+  privileged: true  # https://github.com/firezone/firezone/issues/3226
+
+resources: {}
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Automatically mount a ServiceAccount's API credentials?
+  automount: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""

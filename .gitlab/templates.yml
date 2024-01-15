@@ -1,0 +1,29 @@
+# yamllint disable rule:line-length
+---
+.helm-package:
+  image:
+    name: alpine/helm:3.13.3
+    entrypoint: [""]
+  artifacts:
+    paths:
+      - packages/
+  before_script:
+    - mkdir -p packages/
+  script:
+    - helm package --destination packages/ --version "${HELM_CHART_VERSION}" "${HELM_CHART_PATH}"
+
+.helm-publish:
+  image:
+    name: alpine/helm:3.13.3
+    entrypoint: [""]
+  before_script:
+    - helm registry login "${CI_REGISTRY}" -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}"
+  script:
+    - helm push "packages/${HELM_CHART_PATH}-${HELM_CHART_VERSION}.tgz" oci://${CI_REGISTRY_IMAGE}
+
+.helm-lint:
+  image:
+    name: alpine/helm:3.13.3
+    entrypoint: [""]
+  script:
+    - helm lint "${HELM_CHART_PATH}" --strict
