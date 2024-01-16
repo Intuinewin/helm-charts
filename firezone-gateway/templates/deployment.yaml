@@ -63,13 +63,13 @@ spec:
               command:
                 - sh
                 - '-c'
-                - ip link | grep tun-firezone
+                - cat /proc/net/dev | grep tun-firezone
           readinessProbe:
             exec:
               command:
                 - sh
                 - '-c'
-                - ip link | grep tun-firezone
+                - cat /proc/net/dev | grep tun-firezone
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           securityContext:
