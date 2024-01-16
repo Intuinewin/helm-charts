@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "firezone-gateway.fullname" . }}
+  name: {{ include "firezone-relay.fullname" . }}
   labels:
-    {{- include "firezone-gateway.labels" . | nindent 4 }}
+    {{- include "firezone-relay.labels" . | nindent 4 }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      {{- include "firezone-gateway.selectorLabels" . | nindent 6 }}
+      {{- include "firezone-relay.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -16,7 +16,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "firezone-gateway.labels" . | nindent 8 }}
+        {{- include "firezone-relay.labels" . | nindent 8 }}
 	      {{- with .Values.podLabels }}
           {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -25,7 +25,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "firezone-gateway.serviceAccountName" . }}
+      serviceAccountName: {{ include "firezone-relay.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -38,7 +38,7 @@ spec:
             - name: FIREZONE_API_URL
               value: {{ .Values.config.apiUrl }}
             - name: FIREZONE_NAME
-              value: {{ include "firezone-gateway.fullname" . }}
+              value: {{ include "firezone-relay.fullname" . }}
             - name: FIREZONE_ID
               valueFrom:
                 secretKeyRef:
@@ -49,31 +49,50 @@ spec:
                 secretKeyRef:
                   name: {{ required "Missing required secret containing the firezone token. Make sure to set `config.token.secret`" .Values.config.token.secretName }}
                   key: {{ .Values.config.token.key }}
-            {{- if .Values.enableMasquerade}}
-            - name: FIREZONE_ENABLE_MASQUERADE
-              value: 1
-            {{- end }}
             - name: RUST_LOG
               value: {{ .Values.logLevel }}
+            - name: LOG_FORMAT
+              value: {{ .Values.logFormat }}
+            - name: LOWEST_PORT
+              value: {{ quote .Values.config.TURNLowestPort }}
+            - name: HIGHEST_PORT
+              value: {{ quote .Values.config.TURNHighestPort }}
             {{- with .Values.extraEnv }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
+          ports:
+            - name: stun
+              containerPort: 3478
+              protocol: UDP
+          {{- range $index, $port := (untilStep (int .Values.config.TURNLowestPort) (int (add (.Values.config.TURNHighestPort) 1)) 1) }}
+            - name: turn-{{ $index }}
+              containerPort: {{ $port }}
+              protocol: UDP
+          {{- end }}
           livenessProbe:
             exec:
               command:
                 - sh
                 - '-c'
-                - cat /proc/net/dev | grep tun-firezone
+                - cat /proc/net/udp | grep D96
           readinessProbe:
             exec:
               command:
                 - sh
                 - '-c'
-                - cat /proc/net/dev | grep tun-firezone
+                - cat /proc/net/udp | grep D96
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.volumes }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
