@@ -1,0 +1,123 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ printf "%s-%s" (include "firezone.fullname" $) "web" }}
+  labels:
+    {{- include "firezone.web.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.web.autoscaling.enabled }}
+  replicas: {{ .Values.web.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "firezone.web.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        {{- with .Values.web.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      labels:
+        {{- include "firezone.web.labels" . | nindent 8 }}
+	{{- with .Values.web.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.web.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "firezone.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.web.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.web.securityContext | nindent 12 }}
+          image: "{{ .Values.web.image.repository }}:{{ .Values.web.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.web.image.pullPolicy }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "firezone.fullname" . }}
+          env:
+            - name: PHOENIX_HTTP_WEB_PORT
+              value: {{ quote .Values.web.service.port }}
+            - name: EXTERNAL_URL
+              value: {{ required "Missing `firezone.externalWebURL`" .Values.firezone.externalWebURL }}
+            - name: API_URL_OVERRIDE
+              value: {{ required "Missing `firezone.externalApiWSURL`" .Values.firezone.externalApiWSURL }}
+            - name: OUTBOUND_EMAIL_ADAPTER_OPTS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ required "Missing `firezone.email.opts.secret`" .Values.firezone.email.opts.secret }}
+                  key: {{ required "Missing `firezone.email.opts.key`" .Values.firezone.email.opts.key }}
+            - name: ERLANG_DISTRIBUTION_PORT
+              value: {{ quote .Values.firezone.erlangCluster.distributionPort }}
+            - name: RELEASE_NAME
+              {{- if (and .Values.firezone.erlangCluster.enableKubernetesClusterModule (ne .Values.web.releaseName .Values.api.releaseName)) }}
+              {{- required "api and web release names must be identical when using default kubernetes cluster module" "" }}
+              {{- else }}
+              value: {{ .Values.web.releaseName }}
+              {{- end }}
+            - name: RELEASE_HOSTNAME
+              {{- if .Values.firezone.erlangCluster.enableKubernetesClusterModule }}
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+              {{- else }}
+              value: {{ .Values.web.releaseHostname }}
+              {{- end }}
+            - name: RELEASE_COOKIE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ required "Missing `firezone.erlangCluster.cookie.secret`" .Values.firezone.erlangCluster.cookie.secret }}
+                  key: {{ required "Missing `firezone.erlangCluster.cookie.key`" .Values.firezone.erlangCluster.cookie.key }}
+            {{ include "firezone.database.auth" . | nindent 12 }}
+            {{ include "firezone.secrets" . | nindent 12 }}
+            {{- with .Values.web.extraEnv }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+            {{- with .Values.common.extraEnv }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.web.service.port }}
+              protocol: TCP
+            - name: epmd
+              containerPort: 4369
+              protocol: TCP
+            - name: distribution
+              containerPort: {{ .Values.firezone.erlangCluster.distributionPort }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+          resources:
+            {{- toYaml .Values.web.resources | nindent 12 }}
+          {{- with .Values.web.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.web.volumes }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.web.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.web.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.web.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

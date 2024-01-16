@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "firezone.fullname" . }}
+  labels:
+    {{- include "firezone.labels" . | nindent 4 }}
+data:
+  # Registry
+  DOCKER_REGISTRY: {{ .Values.firezone.dockerRegitry }}
+  # Elixir Logger
+  LOG_LEVEL: {{ .Values.firezone.logLevel }}
+  # Traces
+  {{- if .Values.firezone.traces.enabled }}
+  OTLP_ENDPOINT: {{ required "Missing a valid opentelemetry endpoint" .Values.firezone.traces.opentelemetryEndpoint }}
+  {{- end }}
+  AUTH_PROVIDER_ADAPTERS: {{ join "," .Values.firezone.authProviders }}
+  # Email
+  OUTBOUND_EMAIL_ADAPTER: {{ .Values.firezone.email.adapter }}
+  OUTBOUND_EMAIL_FROM: {{ .Values.firezone.email.from }}
+  # Database
+  DATABASE_HOST: {{ required "Missing `firezone.database.host`" .Values.firezone.database.host }}
+  DATABASE_PORT: {{ quote (required "Missing `firezone.database.port`" .Values.firezone.database.port) }}
+  DATABASE_NAME: {{ required "Missing `firezone.database.database`" .Values.firezone.database.database }}
+  DATABASE_SSL_ENABLED: {{ quote .Values.firezone.database.ssl.enabled }}
+  {{- if .Values.firezone.database.ssl.enabled }}
+  DATABASE_SSL_OPTS: {{ .Values.firezone.database.ssl.opts | toJson }}
+  {{- end }}
+  # Erlang Cluster
+  ERLANG_DISTRIBUTION_PORT: {{ quote .Values.firezone.erlangCluster.distributionPort }}
+  {{- if .Values.firezone.erlangCluster.enableKubernetesClusterModule }}
+  ERLANG_CLUSTER_ADAPTER: Elixir.Cluster.Strategy.Kubernetes
+  ERLANG_CLUSTER_ADAPTER_CONFIG: |
+    {
+      "mode":"ip",
+      "kubernetes_node_basename":"{{ .Values.web.releaseName }}",
+      "kubernetes_selector":"{{ .Values.firezone.erlangCluster.kubernetes.selector.key }}={{ .Values.firezone.erlangCluster.kubernetes.selector.value }}",
+      "kubernetes_namespace":"{{ .Release.Namespace }}",
+      "kubernetes_ip_lookup_mode":"endpoints"
+    }
+  {{- else }}
+  ERLANG_CLUSTER_ADAPTER: {{ .Values.firezone.erlangCluster.custom.adapter }}
+  ERLANG_CLUSTER_ADAPTER_CONFIG: {{ .Values.firezone.erlangCluster.custom.opts }}
+  {{- end }}
+  CLUSTER_DOMAIN: {{ .Values.clusterDomain }}

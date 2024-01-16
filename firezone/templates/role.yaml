@@ -1,0 +1,13 @@
+{{- if .Values.firezone.erlangCluster.enableKubernetesClusterModule -}}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "firezone.serviceAccountName" . }}
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - endpoints
+    verbs:
+      - list
+{{- end }}
