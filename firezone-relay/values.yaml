@@ -16,11 +16,11 @@ config:
   apiUrl: wss://api.firezone.dev
   # Token provided to you by firezone
   token:
-    secretName:
+    secret:
     key: FIREZONE_TOKEN
   # UUID used to identify the relay
   id:
-    secretName:
+    secret:
     key: FIREZONE_ID
   TURNLowestPort: 49152
   TURNHighestPort: 65535
