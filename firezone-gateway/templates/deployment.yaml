@@ -49,9 +49,9 @@ spec:
                 secretKeyRef:
                   name: {{ required "Missing required secret containing the firezone token. Make sure to set `config.token.secret`" .Values.config.token.secretName }}
                   key: {{ .Values.config.token.key }}
-            {{- if .Values.enableMasquerade}}
+            {{- if .Values.config.enableMasquerade}}
             - name: FIREZONE_ENABLE_MASQUERADE
-              value: 1
+              value: "1"
             {{- end }}
             - name: RUST_LOG
               value: {{ .Values.logLevel }}
