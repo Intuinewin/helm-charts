@@ -60,6 +60,9 @@ affinity: {}
 service:
   type: ClusterIP
   annotations: {}
+  ipFamilyPolicy: SingleStack
+  ipFamilies:
+    - IPv4
 
 serviceAccount:
   # Specifies whether a service account should be created

@@ -10,6 +10,11 @@ metadata:
   {{- end }}
 spec:
   type: {{ .Values.service.type }}
+  ipFamilyPolicy: {{ .Values.service.ipFamilyPolicy }}
+  {{- with .Values.service.ipFamilies }}
+  ipFamilies:
+    {{- toYaml . | nindent 8 }}
+  {{- end }}
   ports:
     - name: stun
       port: 3478
