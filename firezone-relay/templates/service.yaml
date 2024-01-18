@@ -15,6 +15,7 @@ spec:
   ipFamilies:
     {{- toYaml . | nindent 8 }}
   {{- end }}
+  externalTrafficPolicy: {{ .Values.service.externalTrafficPolicy }}
   ports:
     - name: stun
       port: 3478

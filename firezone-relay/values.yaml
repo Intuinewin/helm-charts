@@ -65,6 +65,7 @@ service:
   ipFamilyPolicy: SingleStack
   ipFamilies:
     - IPv4
+  externalTrafficPolicy: Local
 
 serviceAccount:
   # Specifies whether a service account should be created
