@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "firezone-relay.labels" . | nindent 4 }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
       {{- include "firezone-relay.selectorLabels" . | nindent 6 }}

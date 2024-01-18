@@ -25,6 +25,8 @@ config:
   TURNLowestPort: 49152
   TURNHighestPort: 65535
 
+replicas: 1
+
 envFrom: []
 extraEnv: []
 
