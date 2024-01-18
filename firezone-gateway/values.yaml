@@ -16,11 +16,11 @@ config:
   enableMasquerade: true
   # Token provided to you by firezone
   token:
-    secretName:
+    secret:
     key: FIREZONE_TOKEN
   # UUID used to identify the gateway
   id:
-    secretName:
+    secret:
     key: FIREZONE_ID
 
 replicas: 1

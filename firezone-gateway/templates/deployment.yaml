@@ -42,12 +42,12 @@ spec:
             - name: FIREZONE_ID
               valueFrom:
                 secretKeyRef:
-                  name: {{ required "Missing required secret containing the firezone id. Make sure to set `config.id.secret`" .Values.config.id.secretName }}
+                  name: {{ required "Missing required secret containing the firezone id. Make sure to set `config.id.secret`" .Values.config.id.secret }}
                   key: {{ .Values.config.id.key }}
             - name: FIREZONE_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: {{ required "Missing required secret containing the firezone token. Make sure to set `config.token.secret`" .Values.config.token.secretName }}
+                  name: {{ required "Missing required secret containing the firezone token. Make sure to set `config.token.secret`" .Values.config.token.secret }}
                   key: {{ .Values.config.token.key }}
             {{- if .Values.config.enableMasquerade}}
             - name: FIREZONE_ENABLE_MASQUERADE
