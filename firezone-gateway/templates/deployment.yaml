@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "firezone-gateway.labels" . | nindent 4 }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
       {{- include "firezone-gateway.selectorLabels" . | nindent 6 }}

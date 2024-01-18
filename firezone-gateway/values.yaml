@@ -23,6 +23,8 @@ config:
     secretName:
     key: FIREZONE_ID
 
+replicas: 1
+
 envFrom: []
 extraEnv: []
 
