@@ -9,7 +9,7 @@ stages:
 
 chart-generator:
   stage: generate
-  image: alpine:3.19.0
+  image: alpine:3.19.1
   script:
     - ./.gitlab/generate-pipeline.sh > generated-pipeline.yml
   artifacts:
