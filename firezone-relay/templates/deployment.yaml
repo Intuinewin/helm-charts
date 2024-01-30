@@ -50,6 +50,8 @@ spec:
               value: {{ quote .Values.config.TURNLowestPort }}
             - name: HIGHEST_PORT
               value: {{ quote .Values.config.TURNHighestPort }}
+            - name: HEALTH_CHECK_ADDR
+              value: 0.0.0.0:9000
             {{- with .Values.extraEnv }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
@@ -57,23 +59,22 @@ spec:
             - name: stun
               containerPort: 3478
               protocol: UDP
+            - name: health
+              containerPort: 9000
+              protocol: TCP
           {{- range $index, $port := (untilStep (int .Values.config.TURNLowestPort) (int (add (.Values.config.TURNHighestPort) 1)) 1) }}
             - name: turn-{{ $index }}
               containerPort: {{ $port }}
               protocol: UDP
           {{- end }}
           livenessProbe:
-            exec:
-              command:
-                - sh
-                - '-c'
-                - cat /proc/net/udp | grep D96
+            httpGet:
+              path: /healthz
+              port: health
           readinessProbe:
-            exec:
-              command:
-                - sh
-                - '-c'
-                - cat /proc/net/udp | grep D96
+            httpGet:
+              path: /healthz
+              port: health
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           securityContext:
