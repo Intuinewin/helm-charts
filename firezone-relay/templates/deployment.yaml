@@ -37,13 +37,6 @@ spec:
           env:
             - name: FIREZONE_API_URL
               value: {{ .Values.config.apiUrl }}
-            - name: FIREZONE_NAME
-              value: {{ include "firezone-relay.fullname" . }}
-            - name: FIREZONE_ID
-              valueFrom:
-                secretKeyRef:
-                  name: {{ required "Missing required secret containing the firezone id. Make sure to set `config.id.secret`" .Values.config.id.secret }}
-                  key: {{ .Values.config.id.key }}
             - name: FIREZONE_TOKEN
               valueFrom:
                 secretKeyRef:
