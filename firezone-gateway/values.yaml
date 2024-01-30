@@ -33,7 +33,11 @@ podLabels: {}
 
 podSecurityContext: {}
 securityContext:
-  privileged: true  # https://github.com/firezone/firezone/issues/3226
+  allowPrivilegeEscalation: false
+  capabilities:
+    add:
+      - NET_ADMIN
+  readOnlyRootFilesystem: true
 
 resources: {}
 
