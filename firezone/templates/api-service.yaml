@@ -4,7 +4,7 @@ metadata:
   name: {{ printf "%s-%s" (include "firezone.fullname" $) "api" }}
   labels:
     {{- include "firezone.api.labels" . | nindent 4 }}
-    {{ .Values.firezone.erlangCluster.kubernetes.selector.key }}: {{ .Values.firezone.erlangCluster.kubernetes.selector.value }}
+    {{ .Values.global.erlangCluster.kubernetes.selector.key }}: {{ .Values.global.erlangCluster.kubernetes.selector.value }}
 spec:
   type: {{ .Values.api.service.type }}
   ports:
@@ -16,7 +16,7 @@ spec:
       targetPort: epmd
       protocol: TCP
       name: epmd
-    - port: {{ .Values.firezone.erlangCluster.distributionPort }}
+    - port: {{ .Values.global.erlangCluster.distributionPort }}
       targetPort: distribution
       protocol: TCP
       name: distribution

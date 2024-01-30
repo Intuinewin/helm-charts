@@ -4,8 +4,7 @@ nameOverride: ""
 fullnameOverride: ""
 clusterDomain: cluster.local
 
-# Global config
-firezone:
+global:
   logLevel: debug
   dockerRegitry: ghcr.io/firezone
 
@@ -84,7 +83,6 @@ firezone:
     - token
     - email
 
-common:
   extraEnv: []
 
 web:

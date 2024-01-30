@@ -1,4 +1,4 @@
-{{- if .Values.firezone.erlangCluster.enableKubernetesClusterModule -}}
+{{- if .Values.global.erlangCluster.enableKubernetesClusterModule -}}
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:

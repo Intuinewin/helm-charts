@@ -88,13 +88,13 @@ Database env secrets
 - name: DATABASE_USER
   valueFrom:
     secretKeyRef:
-      name: {{ required "Missing `firezone.database.username.secret`" .Values.firezone.database.username.secret }}
-      key: {{ required "Missing `firezone.database.username.key`" .Values.firezone.database.username.key }}
+      name: {{ required "Missing `firezone.database.username.secret`" .Values.global.database.username.secret }}
+      key: {{ required "Missing `firezone.database.username.key`" .Values.global.database.username.key }}
 - name: DATABASE_PASSWORD
   valueFrom:
     secretKeyRef:
-      name: {{ required "Missing `firezone.database.password.secret`" .Values.firezone.database.password.secret }}
-      key: {{ required "Missing `firezone.database.password.key`" .Values.firezone.database.password.key }}
+      name: {{ required "Missing `firezone.database.password.secret`" .Values.global.database.password.secret }}
+      key: {{ required "Missing `firezone.database.password.key`" .Values.global.database.password.key }}
 {{- end }}
 
 {{/*
@@ -104,33 +104,33 @@ Common env secrets
 - name: SECRET_KEY_BASE
   valueFrom:
     secretKeyRef:
-      name: {{ required "Missing `firezone.phoenix.keyBase.secret`" .Values.firezone.phoenix.keyBase.secret }}
-      key: {{ required "Missing `firezone.phoenix.keyBase.key`" .Values.firezone.phoenix.keyBase.key }}
+      name: {{ required "Missing `firezone.phoenix.keyBase.secret`" .Values.global.phoenix.keyBase.secret }}
+      key: {{ required "Missing `firezone.phoenix.keyBase.key`" .Values.global.phoenix.keyBase.key }}
 - name: LIVE_VIEW_SIGNING_SALT
   valueFrom:
     secretKeyRef:
-      name: {{ required "Missing `firezone.phoenix.liveViewSalt.secret`" .Values.firezone.phoenix.liveViewSalt.secret }}
-      key: {{ required "Missing `firezone.phoenix.liveViewSalt.key`" .Values.firezone.phoenix.liveViewSalt.key }}
+      name: {{ required "Missing `firezone.phoenix.liveViewSalt.secret`" .Values.global.phoenix.liveViewSalt.secret }}
+      key: {{ required "Missing `firezone.phoenix.liveViewSalt.key`" .Values.global.phoenix.liveViewSalt.key }}
 - name: COOKIE_SIGNING_SALT
   valueFrom:
     secretKeyRef:
-      name: {{ required "Missing `firezone.phoenix.cookieSigningSalt.secret`" .Values.firezone.phoenix.cookieSigningSalt.secret }}
-      key: {{ required "Missing `firezone.phoenix.cookieSigningSalt.key`" .Values.firezone.phoenix.cookieSigningSalt.key }}
+      name: {{ required "Missing `firezone.phoenix.cookieSigningSalt.secret`" .Values.global.phoenix.cookieSigningSalt.secret }}
+      key: {{ required "Missing `firezone.phoenix.cookieSigningSalt.key`" .Values.global.phoenix.cookieSigningSalt.key }}
 - name: COOKIE_ENCRYPTION_SALT
   valueFrom:
     secretKeyRef:
-      name: {{ required "Missing `firezone.phoenix.cookieEncryptionSalt.secret`" .Values.firezone.phoenix.cookieEncryptionSalt.secret }}
-      key: {{ required "Missing `firezone.phoenix.cookieEncryptionSalt.key`" .Values.firezone.phoenix.cookieEncryptionSalt.key }}
+      name: {{ required "Missing `firezone.phoenix.cookieEncryptionSalt.secret`" .Values.global.phoenix.cookieEncryptionSalt.secret }}
+      key: {{ required "Missing `firezone.phoenix.cookieEncryptionSalt.key`" .Values.global.phoenix.cookieEncryptionSalt.key }}
 - name: TOKENS_KEY_BASE
   valueFrom:
     secretKeyRef:
-      name: {{ required "Missing `firezone.tokens.keyBase.secret`" .Values.firezone.tokens.keyBase.secret }}
-      key: {{ required "Missing `firezone.tokens.keyBase.key`" .Values.firezone.tokens.keyBase.key }}
+      name: {{ required "Missing `firezone.tokens.keyBase.secret`" .Values.global.tokens.keyBase.secret }}
+      key: {{ required "Missing `firezone.tokens.keyBase.key`" .Values.global.tokens.keyBase.key }}
 - name: TOKENS_SALT
   valueFrom:
     secretKeyRef:
-      name: {{ required "Missing `firezone.tokens.salt.secret`" .Values.firezone.tokens.salt.secret }}
-      key: {{ required "Missing `firezone.tokens.salt.key`" .Values.firezone.tokens.salt.key }}
+      name: {{ required "Missing `firezone.tokens.salt.secret`" .Values.global.tokens.salt.secret }}
+      key: {{ required "Missing `firezone.tokens.salt.key`" .Values.global.tokens.salt.key }}
 {{- end }}
 
 {{/*

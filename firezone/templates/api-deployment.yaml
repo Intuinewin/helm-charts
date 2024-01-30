@@ -44,17 +44,17 @@ spec:
             - name: PHOENIX_HTTP_API_PORT
               value: {{ quote .Values.api.service.port }}
             - name: EXTERNAL_URL
-              value: {{ required "Missing `firezone.externalApiURL`" .Values.firezone.externalApiURL }}
+              value: {{ required "Missing `firezone.externalApiURL`" .Values.global.externalApiURL }}
             - name: ERLANG_DISTRIBUTION_PORT
-              value: {{ quote .Values.firezone.erlangCluster.distributionPort }}
+              value: {{ quote .Values.global.erlangCluster.distributionPort }}
             - name: RELEASE_NAME
-              {{- if (and .Values.firezone.erlangCluster.enableKubernetesClusterModule (ne .Values.web.releaseName .Values.api.releaseName)) }}
+              {{- if (and .Values.global.erlangCluster.enableKubernetesClusterModule (ne .Values.web.releaseName .Values.api.releaseName)) }}
               {{- required "api and web release names must be identical when using default kubernetes cluster module" "" }}
               {{- else }}
               value: {{ .Values.api.releaseName }}
               {{- end }}
             - name: RELEASE_HOSTNAME
-              {{- if .Values.firezone.erlangCluster.enableKubernetesClusterModule }}
+              {{- if .Values.global.erlangCluster.enableKubernetesClusterModule }}
               valueFrom:
                 fieldRef:
                   fieldPath: status.podIP
@@ -64,19 +64,19 @@ spec:
             - name: RELEASE_COOKIE
               valueFrom:
                 secretKeyRef:
-                  name: {{ required "Missing `firezone.erlangCluster.cookie.secret`" .Values.firezone.erlangCluster.cookie.secret }}
-                  key: {{ required "Missing `firezone.erlangCluster.cookie.key`" .Values.firezone.erlangCluster.cookie.key }}
+                  name: {{ required "Missing `firezone.erlangCluster.cookie.secret`" .Values.global.erlangCluster.cookie.secret }}
+                  key: {{ required "Missing `firezone.erlangCluster.cookie.key`" .Values.global.erlangCluster.cookie.key }}
             - name: OUTBOUND_EMAIL_ADAPTER_OPTS
               valueFrom:
                 secretKeyRef:
-                  name: {{ required "Missing `firezone.email.opts.secret`" .Values.firezone.email.opts.secret }}
-                  key: {{ required "Missing `firezone.email.opts.key`" .Values.firezone.email.opts.key }}
+                  name: {{ required "Missing `firezone.email.opts.secret`" .Values.global.email.opts.secret }}
+                  key: {{ required "Missing `firezone.email.opts.key`" .Values.global.email.opts.key }}
             {{ include "firezone.database.auth" . | nindent 12 }}
             {{ include "firezone.secrets" . | nindent 12 }}
             {{- with .Values.api.extraEnv }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
-            {{- with .Values.common.extraEnv }}
+            {{- with .Values.global.extraEnv }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
           ports:
@@ -87,7 +87,7 @@ spec:
               containerPort: 4369
               protocol: TCP
             - name: distribution
-              containerPort: {{ .Values.firezone.erlangCluster.distributionPort }}
+              containerPort: {{ .Values.global.erlangCluster.distributionPort }}
               protocol: TCP
           livenessProbe:
             httpGet:
