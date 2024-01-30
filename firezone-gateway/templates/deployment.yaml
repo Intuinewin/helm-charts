@@ -41,9 +41,8 @@ spec:
               value: {{ include "firezone-gateway.fullname" . }}
             - name: FIREZONE_ID
               valueFrom:
-                secretKeyRef:
-                  name: {{ required "Missing required secret containing the firezone id. Make sure to set `config.id.secret`" .Values.config.id.secret }}
-                  key: {{ .Values.config.id.key }}
+                fieldRef:
+                  fieldPath: status.podIP
             - name: FIREZONE_TOKEN
               valueFrom:
                 secretKeyRef:

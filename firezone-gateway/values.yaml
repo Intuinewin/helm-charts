@@ -18,10 +18,6 @@ config:
   token:
     secret:
     key: FIREZONE_TOKEN
-  # UUID used to identify the gateway
-  id:
-    secret:
-    key: FIREZONE_ID
 
 replicas: 1
 
