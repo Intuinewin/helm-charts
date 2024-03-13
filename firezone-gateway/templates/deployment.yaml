@@ -54,21 +54,23 @@ spec:
             {{- end }}
             - name: RUST_LOG
               value: {{ .Values.logLevel }}
+            - name: HEALTH_CHECK_ADDR
+              value: 0.0.0.0:9000
             {{- with .Values.extraEnv }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
+          ports:
+            - name: health
+              containerPort: 9000
+              protocol: TCP
           livenessProbe:
-            exec:
-              command:
-                - sh
-                - '-c'
-                - cat /proc/net/dev | grep tun-firezone
+            httpGet:
+              path: /healthz
+              port: health
           readinessProbe:
-            exec:
-              command:
-                - sh
-                - '-c'
-                - cat /proc/net/dev | grep tun-firezone
+            httpGet:
+              path: /healthz
+              port: health
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           securityContext:
