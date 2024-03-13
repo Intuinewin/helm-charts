@@ -38,7 +38,9 @@ spec:
             - name: FIREZONE_API_URL
               value: {{ .Values.config.apiUrl }}
             - name: FIREZONE_NAME
-              value: {{ include "firezone-gateway.fullname" . }}
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
             - name: FIREZONE_ID
               valueFrom:
                 fieldRef:
