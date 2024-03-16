@@ -55,11 +55,7 @@ spec:
             - name: ERLANG_DISTRIBUTION_PORT
               value: {{ quote .Values.global.erlangCluster.distributionPort }}
             - name: RELEASE_NAME
-              {{- if (and .Values.global.erlangCluster.enableKubernetesClusterModule (ne .Values.web.releaseName .Values.api.releaseName)) }}
-              {{- required "api and web release names must be identical when using default kubernetes cluster module" "" }}
-              {{- else }}
               value: {{ .Values.web.releaseName }}
-              {{- end }}
             - name: RELEASE_HOSTNAME
               {{- if .Values.global.erlangCluster.enableKubernetesClusterModule }}
               valueFrom:
@@ -73,6 +69,8 @@ spec:
                 secretKeyRef:
                   name: {{ required "Missing `firezone.erlangCluster.cookie.secret`" .Values.global.erlangCluster.cookie.secret }}
                   key: {{ required "Missing `firezone.erlangCluster.cookie.key`" .Values.global.erlangCluster.cookie.key }}
+            - name: BACKGROUND_JOBS_ENABLED
+              value: {{ .Values.web.backgroundJobsEnabled | quote }}
             {{ include "firezone.database.auth" . | nindent 12 }}
             {{ include "firezone.secrets" . | nindent 12 }}
             {{- with .Values.web.extraEnv }}

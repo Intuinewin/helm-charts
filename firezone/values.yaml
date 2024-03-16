@@ -101,6 +101,8 @@ web:
   # Only needed if kubernetes cluster module is disabled
   releaseHostname:
 
+  backgroundJobsEnabled: false
+
   podAnnotations: {}
   podLabels: {}
 
@@ -173,6 +175,8 @@ api:
   # Only needed if kubernetes cluster module is disabled
   releaseHostname:
 
+  backgroundJobsEnabled: false
+
   imagePullSecrets: []
 
   podAnnotations: {}
@@ -209,6 +213,62 @@ api:
     #  - secretName: chart-example-tls
     #    hosts:
     #      - chart-example.local
+
+  resources: {}
+
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
+
+  volumes:
+    - emptyDir: {}
+      name: var-firezone
+
+  volumeMounts:
+    - mountPath: /var/firezone
+      name: var-firezone
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+domain:
+  replicaCount: 1
+
+  image:
+    repository: us-east1-docker.pkg.dev/firezone-prod/firezone/domain
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: ""
+
+  extraEnv: []
+  releaseName: firezone
+  # Only needed if kubernetes cluster module is disabled
+  releaseHostname:
+
+  backgroundJobsEnabled: true
+
+  imagePullSecrets: []
+
+  podAnnotations: {}
+  podLabels: {}
+
+  podSecurityContext: {}
+  # fsGroup: 2000
+
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
+    readOnlyRootFilesystem: true
 
   resources: {}
 

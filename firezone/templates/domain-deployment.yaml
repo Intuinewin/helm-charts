@@ -1,57 +1,53 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ printf "%s-%s" (include "firezone.fullname" $) "api" }}
+  name: {{ printf "%s-%s" (include "firezone.fullname" $) "domain" }}
   labels:
-    {{- include "firezone.api.labels" . | nindent 4 }}
+    {{- include "firezone.domain.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.api.autoscaling.enabled }}
-  replicas: {{ .Values.api.replicaCount }}
+  {{- if not .Values.domain.autoscaling.enabled }}
+  replicas: {{ .Values.domain.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "firezone.api.selectorLabels" . | nindent 6 }}
+      {{- include "firezone.domain.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
-        {{- with .Values.api.podAnnotations }}
+        {{- with .Values.domain.podAnnotations }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
       labels:
-        {{- include "firezone.api.labels" . | nindent 8 }}
-	{{- with .Values.api.podLabels }}
+        {{- include "firezone.domain.labels" . | nindent 8 }}
+	{{- with .Values.domain.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
-      {{- with .Values.api.imagePullSecrets }}
+      {{- with .Values.domain.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "firezone.serviceAccountName" . }}
       securityContext:
-        {{- toYaml .Values.api.podSecurityContext | nindent 8 }}
+        {{- toYaml .Values.domain.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
-            {{- toYaml .Values.api.securityContext | nindent 12 }}
-          image: "{{ .Values.api.image.repository }}:{{ .Values.api.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.api.image.pullPolicy }}
+            {{- toYaml .Values.domain.securityContext | nindent 12 }}
+          image: "{{ .Values.domain.image.repository }}:{{ .Values.domain.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.domain.image.pullPolicy }}
           envFrom:
             - configMapRef:
                 name: {{ include "firezone.fullname" . }}
           env:
-            - name: PHOENIX_HTTP_API_PORT
-              value: {{ quote .Values.api.service.port }}
-            - name: EXTERNAL_URL
-              value: {{ required "Missing `firezone.externalApiURL`" .Values.global.externalApiURL }}
             - name: ERLANG_DISTRIBUTION_PORT
               value: {{ quote .Values.global.erlangCluster.distributionPort }}
             - name: RELEASE_NAME
-              {{- if (and .Values.global.erlangCluster.enableKubernetesClusterModule (ne .Values.web.releaseName .Values.api.releaseName)) }}
-              {{- required "api and web release names must be identical when using default kubernetes cluster module" "" }}
+              {{- if (and .Values.global.erlangCluster.enableKubernetesClusterModule (ne .Values.web.releaseName .Values.domain.releaseName)) }}
+              {{- required "domain and web release names must be identical when using default kubernetes cluster module" "" }}
               {{- else }}
-              value: {{ .Values.api.releaseName }}
+              value: {{ .Values.domain.releaseName }}
               {{- end }}
             - name: RELEASE_HOSTNAME
               {{- if .Values.global.erlangCluster.enableKubernetesClusterModule }}
@@ -59,7 +55,7 @@ spec:
                 fieldRef:
                   fieldPath: status.podIP
               {{- else }}
-              value: {{ .Values.api.releaseHostname }}
+              value: {{ .Values.domain.releaseHostname }}
               {{- end }}
             - name: RELEASE_COOKIE
               valueFrom:
@@ -72,10 +68,10 @@ spec:
                   name: {{ required "Missing `firezone.email.opts.secret`" .Values.global.email.opts.secret }}
                   key: {{ required "Missing `firezone.email.opts.key`" .Values.global.email.opts.key }}
             - name: BACKGROUND_JOBS_ENABLED
-              value: {{ .Values.api.backgroundJobsEnabled | quote }}
+              value: {{ .Values.domain.backgroundJobsEnabled | quote }}
             {{ include "firezone.database.auth" . | nindent 12 }}
             {{ include "firezone.secrets" . | nindent 12 }}
-            {{- with .Values.api.extraEnv }}
+            {{- with .Values.domain.extraEnv }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
             {{- with .Values.global.extraEnv }}
@@ -83,7 +79,7 @@ spec:
             {{- end }}
           ports:
             - name: http
-              containerPort: {{ .Values.api.service.port }}
+              containerPort: 4000
               protocol: TCP
             - name: epmd
               containerPort: 4369
@@ -100,24 +96,24 @@ spec:
               path: /healthz
               port: http
           resources:
-            {{- toYaml .Values.api.resources | nindent 12 }}
-          {{- with .Values.api.volumeMounts }}
+            {{- toYaml .Values.domain.resources | nindent 12 }}
+          {{- with .Values.domain.volumeMounts }}
           volumeMounts:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-      {{- with .Values.api.volumes }}
+      {{- with .Values.domain.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.api.nodeSelector }}
+      {{- with .Values.domain.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.api.affinity }}
+      {{- with .Values.domain.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.api.tolerations }}
+      {{- with .Values.domain.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
