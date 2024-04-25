@@ -38,6 +38,10 @@ do
 '${f}:package':
   stage: build
   extends: .helm-package
+  needs:
+    - $f:lint
+    - $f:yamllint
+    - $f:jsonlint
   variables:
     HELM_CHART_PATH: "$f"
     HELM_CHART_VERSION: "$CHART_VERSION"
