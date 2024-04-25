@@ -20,7 +20,7 @@ do
   image: registry.gitlab.com/pipeline-components/jsonlint:latest
   script:
     - |
-      find "${f}" -not -path './.git/*' -name '*.json' -type f -print0 |
+      find "$f" -not -path './.git/*' -name '*.json' -type f -print0 |
       parallel --will-cite -k -0 -n1 jsonlint -q
 
 '$f:yamllint':
@@ -33,9 +33,9 @@ do
   stage: linting
   extends: .helm-lint
   variables:
-    HELM_CHART_PATH: "${f}"
+    HELM_CHART_PATH: "$f"
 
-'${f}:package':
+'$f:package':
   stage: build
   extends: .helm-package
   needs:
