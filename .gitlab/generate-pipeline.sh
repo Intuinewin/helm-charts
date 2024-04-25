@@ -42,7 +42,7 @@ do
     HELM_CHART_PATH: "$f"
     HELM_CHART_VERSION: "$CHART_VERSION"
   rules:
-    - if: \$CI_COMMIT_TAG =~ "/^$f-.*$/"
+    - if: \$CI_COMMIT_TAG == "$CHART_RELEASE"
       changes:
         - $f/**/*
 
@@ -55,7 +55,7 @@ do
     HELM_CHART_PATH: "$f"
     HELM_CHART_VERSION: "$CHART_VERSION"
   rules:
-    - if: \$CI_COMMIT_TAG =~ "/^$f-.*$/"
+    - if: \$CI_COMMIT_TAG == "$CHART_RELEASE"
       changes:
         - $f/**/*
 EOF
