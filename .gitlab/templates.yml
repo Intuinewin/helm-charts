@@ -2,7 +2,7 @@
 ---
 .helm-package:
   image:
-    name: alpine/helm:3.13.3
+    name: alpine/helm:3.14.4
     entrypoint: [""]
   artifacts:
     paths:
@@ -14,7 +14,7 @@
 
 .helm-publish:
   image:
-    name: alpine/helm:3.13.3
+    name: alpine/helm:3.14.4
     entrypoint: [""]
   before_script:
     - helm registry login "${CI_REGISTRY}" -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}"
@@ -23,7 +23,7 @@
 
 .helm-lint:
   image:
-    name: alpine/helm:3.13.3
+    name: alpine/helm:3.14.4
     entrypoint: [""]
   script:
     - helm lint "${HELM_CHART_PATH}" --strict
