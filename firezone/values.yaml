@@ -6,7 +6,7 @@ clusterDomain: cluster.local
 
 global:
   logLevel: debug
-  dockerRegitry: ghcr.io/firezone
+  dockerRegistry: ghcr.io/firezone
 
   # External http web URL
   # https://firezone.domain.tld
