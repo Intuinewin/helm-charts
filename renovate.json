@@ -5,7 +5,7 @@
   "gitlabci": {
     "fileMatch": [
       "\\.gitlab-ci\\.ya?ml$",
-      "\\.gitlab/templates\\.yaml$"
+      "\\.gitlab/templates\\.ya?ml$"
     ]
   }
 }
