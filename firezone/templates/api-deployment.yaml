@@ -20,7 +20,7 @@ spec:
         {{- end }}
       labels:
         {{- include "firezone.api.labels" . | nindent 8 }}
-	{{- with .Values.api.podLabels }}
+        {{- with .Values.api.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
