@@ -18,6 +18,8 @@ config:
     key: FIREZONE_TOKEN
   TURNLowestPort: 49152
   TURNHighestPort: 65535
+  publicIPV4Addr:
+  publicIPV6Addr:
 
 replicas: 1
 

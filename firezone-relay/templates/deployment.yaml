@@ -54,6 +54,14 @@ spec:
               value: {{ quote .Values.config.TURNLowestPort }}
             - name: HIGHEST_PORT
               value: {{ quote .Values.config.TURNHighestPort }}
+            {{- if .Values.config.publicIPV4Addr }}
+            - name: PUBLIC_IP4_ADDR
+              value: {{ quote .Values.config.publicIPV4Addr }}
+            {{- end }}
+            {{- if .Values.config.publicIPV6Addr }}
+            - name: PUBLIC_IP6_ADDR
+              value: {{ quote .Values.config.publicIPV6Addr }}
+            {{- end }}
             - name: HEALTH_CHECK_ADDR
               value: 0.0.0.0:9000
             {{- with .Values.extraEnv }}
