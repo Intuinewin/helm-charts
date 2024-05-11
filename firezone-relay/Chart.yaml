@@ -1,5 +1,3 @@
-# yamllint disable rule:line-length
----
 apiVersion: v2
 name: firezone-relay
 version: 0.1.0

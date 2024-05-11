@@ -1,5 +1,3 @@
-# yamllint disable rule:line-length
----
 image:
   repository: us-east1-docker.pkg.dev/firezone-prod/firezone/gateway
   pullPolicy: IfNotPresent

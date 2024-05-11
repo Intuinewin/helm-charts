@@ -1,5 +1,3 @@
-# yamllint disable rule:line-length
----
 apiVersion: v2
 name: firezone
 version: 0.1.0
