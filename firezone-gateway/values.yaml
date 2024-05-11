@@ -1,5 +1,5 @@
 image:
-  repository: us-east1-docker.pkg.dev/firezone-prod/firezone/gateway
+  repository: ghcr.io/firezone/gateway
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""

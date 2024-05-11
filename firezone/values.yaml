@@ -87,7 +87,7 @@ web:
   replicaCount: 1
 
   image:
-    repository: us-east1-docker.pkg.dev/firezone-prod/firezone/web
+    repository: ghcr.io/firezone/web
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
@@ -163,7 +163,7 @@ api:
   replicaCount: 1
 
   image:
-    repository: us-east1-docker.pkg.dev/firezone-prod/firezone/api
+    repository: ghcr.io/firezone/api
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
@@ -239,7 +239,7 @@ domain:
   replicaCount: 1
 
   image:
-    repository: us-east1-docker.pkg.dev/firezone-prod/firezone/domain
+    repository: ghcr.io/firezone/domain
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
