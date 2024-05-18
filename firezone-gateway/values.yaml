@@ -18,6 +18,7 @@ config:
     key: FIREZONE_TOKEN
 
 replicas: 1
+revisionHistoryLimit: 10
 
 envFrom: []
 extraEnv: []

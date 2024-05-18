@@ -85,6 +85,7 @@ global:
 
 web:
   replicaCount: 1
+  revisionHistoryLimit: 10
 
   image:
     repository: ghcr.io/firezone/web
@@ -161,6 +162,7 @@ web:
 
 api:
   replicaCount: 1
+  revisionHistoryLimit: 10
 
   image:
     repository: ghcr.io/firezone/api
@@ -237,6 +239,7 @@ api:
 
 domain:
   replicaCount: 1
+  revisionHistoryLimit: 10
 
   image:
     repository: ghcr.io/firezone/domain

@@ -6,6 +6,7 @@ metadata:
     {{- include "firezone-relay.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicas }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   selector:
     matchLabels:
       {{- include "firezone-relay.selectorLabels" . | nindent 6 }}
