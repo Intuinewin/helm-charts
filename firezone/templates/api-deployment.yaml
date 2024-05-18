@@ -46,8 +46,6 @@ spec:
               value: {{ quote .Values.api.service.port }}
             - name: EXTERNAL_URL
               value: {{ required "Missing `firezone.externalApiURL`" .Values.global.externalApiURL }}
-            - name: ERLANG_DISTRIBUTION_PORT
-              value: {{ quote .Values.global.erlangCluster.distributionPort }}
             - name: RELEASE_NAME
               {{- if (and .Values.global.erlangCluster.enableKubernetesClusterModule (ne .Values.web.releaseName .Values.api.releaseName)) }}
               {{- required "api and web release names must be identical when using default kubernetes cluster module" "" }}
@@ -62,18 +60,9 @@ spec:
               {{- else }}
               value: {{ .Values.api.releaseHostname }}
               {{- end }}
-            - name: RELEASE_COOKIE
-              valueFrom:
-                secretKeyRef:
-                  name: {{ required "Missing `firezone.erlangCluster.cookie.secret`" .Values.global.erlangCluster.cookie.secret }}
-                  key: {{ required "Missing `firezone.erlangCluster.cookie.key`" .Values.global.erlangCluster.cookie.key }}
-            - name: OUTBOUND_EMAIL_ADAPTER_OPTS
-              valueFrom:
-                secretKeyRef:
-                  name: {{ required "Missing `firezone.email.opts.secret`" .Values.global.email.opts.secret }}
-                  key: {{ required "Missing `firezone.email.opts.key`" .Values.global.email.opts.key }}
             - name: BACKGROUND_JOBS_ENABLED
               value: {{ .Values.api.backgroundJobsEnabled | quote }}
+            {{ include "firezone.common" . | nindent 12 }}
             {{ include "firezone.database.auth" . | nindent 12 }}
             {{ include "firezone.secrets" . | nindent 12 }}
             {{- with .Values.api.extraEnv }}
@@ -87,7 +76,7 @@ spec:
               containerPort: {{ .Values.api.service.port }}
               protocol: TCP
             - name: epmd
-              containerPort: 4369
+              containerPort: {{ .Values.global.erlangCluster.epmdPort }}
               protocol: TCP
             - name: distribution
               containerPort: {{ .Values.global.erlangCluster.distributionPort }}
