@@ -42,8 +42,6 @@ spec:
             - configMapRef:
                 name: {{ include "firezone.fullname" . }}
           env:
-            - name: ERLANG_DISTRIBUTION_PORT
-              value: {{ quote .Values.global.erlangCluster.distributionPort }}
             - name: RELEASE_NAME
               {{- if (and .Values.global.erlangCluster.enableKubernetesClusterModule (ne .Values.web.releaseName .Values.domain.releaseName)) }}
               {{- required "domain and web release names must be identical when using default kubernetes cluster module" "" }}
@@ -58,18 +56,9 @@ spec:
               {{- else }}
               value: {{ .Values.domain.releaseHostname }}
               {{- end }}
-            - name: RELEASE_COOKIE
-              valueFrom:
-                secretKeyRef:
-                  name: {{ required "Missing `firezone.erlangCluster.cookie.secret`" .Values.global.erlangCluster.cookie.secret }}
-                  key: {{ required "Missing `firezone.erlangCluster.cookie.key`" .Values.global.erlangCluster.cookie.key }}
-            - name: OUTBOUND_EMAIL_ADAPTER_OPTS
-              valueFrom:
-                secretKeyRef:
-                  name: {{ required "Missing `firezone.email.opts.secret`" .Values.global.email.opts.secret }}
-                  key: {{ required "Missing `firezone.email.opts.key`" .Values.global.email.opts.key }}
             - name: BACKGROUND_JOBS_ENABLED
               value: {{ .Values.domain.backgroundJobsEnabled | quote }}
+            {{ include "firezone.common" . | nindent 12 }}
             {{ include "firezone.database.auth" . | nindent 12 }}
             {{ include "firezone.secrets" . | nindent 12 }}
             {{- with .Values.domain.extraEnv }}

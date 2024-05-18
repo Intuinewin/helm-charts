@@ -118,6 +118,16 @@ Database env secrets
 {{- end }}
 
 {{/*
+Common env
+*/}}
+{{- define "firezone.common" -}}
+- name: ERL_EPMD_PORT
+  value: {{ .Values.global.erlangCluster.epmdPort | quote }}
+- name: ERLANG_DISTRIBUTION_PORT
+  value: {{ quote .Values.global.erlangCluster.distributionPort }}
+{{- end }}
+
+{{/*
 Common env secrets
 */}}
 {{- define "firezone.secrets" -}}
@@ -151,6 +161,16 @@ Common env secrets
     secretKeyRef:
       name: {{ required "Missing `firezone.tokens.salt.secret`" .Values.global.tokens.salt.secret }}
       key: {{ required "Missing `firezone.tokens.salt.key`" .Values.global.tokens.salt.key }}
+- name: RELEASE_COOKIE
+  valueFrom:
+    secretKeyRef:
+      name: {{ required "Missing `firezone.erlangCluster.cookie.secret`" .Values.global.erlangCluster.cookie.secret }}
+      key: {{ required "Missing `firezone.erlangCluster.cookie.key`" .Values.global.erlangCluster.cookie.key }}
+- name: OUTBOUND_EMAIL_ADAPTER_OPTS
+  valueFrom:
+    secretKeyRef:
+      name: {{ required "Missing `firezone.email.opts.secret`" .Values.global.email.opts.secret }}
+      key: {{ required "Missing `firezone.email.opts.key`" .Values.global.email.opts.key }}
 {{- end }}
 
 {{/*
