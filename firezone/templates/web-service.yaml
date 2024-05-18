@@ -12,7 +12,7 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
-    - port: 4369
+    - port: {{ .Values.global.erlangCluster.epmdPort }}
       targetPort: epmd
       protocol: TCP
       name: epmd

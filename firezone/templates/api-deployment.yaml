@@ -87,7 +87,7 @@ spec:
               containerPort: {{ .Values.api.service.port }}
               protocol: TCP
             - name: epmd
-              containerPort: 4369
+              containerPort: {{ .Values.global.erlangCluster.epmdPort }}
               protocol: TCP
             - name: distribution
               containerPort: {{ .Values.global.erlangCluster.distributionPort }}
