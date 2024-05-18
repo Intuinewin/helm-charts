@@ -15,9 +15,10 @@ global:
   # https://api.firezone.domain.tld
   externalApiURL:
 
-  traces:
-    enabled: false
-    opentelemetryEndpoint:
+  # OpenTelemetry
+  otlp:
+    # HTTP Endpoint
+    endpoint:
 
   database:
     host:

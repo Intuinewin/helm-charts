@@ -9,9 +9,9 @@ data:
   DOCKER_REGISTRY: {{ .Values.global.dockerRegistry }}
   # Elixir Logger
   LOG_LEVEL: {{ .Values.global.logLevel }}
-  # Traces
-  {{- if .Values.global.traces.enabled }}
-  OTLP_ENDPOINT: {{ required "Missing a valid opentelemetry endpoint" .Values.global.traces.opentelemetryEndpoint }}
+  # OTLP
+  {{- if .Values.global.otlp.endpoint }}
+  OTLP_ENDPOINT: {{ .Values.global.otlp.endpoint }}
   {{- end }}
   AUTH_PROVIDER_ADAPTERS: {{ join "," .Values.global.authProviders }}
   # Email
