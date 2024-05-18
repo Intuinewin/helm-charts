@@ -33,6 +33,8 @@ global:
     password:
       secret:
       key: password
+    pool_size:
+    parameters:
 
   erlangCluster:
     epmdPort: 4369

@@ -25,6 +25,12 @@ data:
   {{- if .Values.global.database.ssl.enabled }}
   DATABASE_SSL_OPTS: {{ .Values.global.database.ssl.opts | toJson }}
   {{- end }}
+  {{- if .Values.global.database.pool_size }}
+  DATABASE_POOL_SIZE: {{ .Values.global.database.pool_size }}
+  {{- end }}
+  {{- if .Values.global.database.parameters }}
+  DATABASE_PARAMETERS: {{ .Values.global.database.parameters | toJson }}
+  {{- end }}
   # Erlang Cluster
   ERLANG_DISTRIBUTION_PORT: {{ quote .Values.global.erlangCluster.distributionPort }}
   {{- if .Values.global.erlangCluster.enableKubernetesClusterModule }}
