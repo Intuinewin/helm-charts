@@ -45,7 +45,7 @@ spec:
             - name: FIREZONE_ID
               valueFrom:
                 fieldRef:
-                  fieldPath: status.podIP
+                  fieldPath: metadata.uid
             - name: FIREZONE_TOKEN
               valueFrom:
                 secretKeyRef:
