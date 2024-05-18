@@ -6,6 +6,7 @@ metadata:
     {{- include "firezone-gateway.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicas }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   selector:
     matchLabels:
       {{- include "firezone-gateway.selectorLabels" . | nindent 6 }}

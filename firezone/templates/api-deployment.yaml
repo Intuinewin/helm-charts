@@ -8,6 +8,7 @@ spec:
   {{- if not .Values.api.autoscaling.enabled }}
   replicas: {{ .Values.api.replicaCount }}
   {{- end }}
+  revisionHistoryLimit: {{ .Values.api.revisionHistoryLimit }}
   selector:
     matchLabels:
       {{- include "firezone.api.selectorLabels" . | nindent 6 }}
