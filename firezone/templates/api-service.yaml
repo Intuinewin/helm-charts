@@ -12,13 +12,5 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
-    - port: {{ .Values.global.erlangCluster.epmdPort }}
-      targetPort: epmd
-      protocol: TCP
-      name: epmd
-    - port: {{ .Values.global.erlangCluster.distributionPort }}
-      targetPort: distribution
-      protocol: TCP
-      name: distribution
   selector:
     {{- include "firezone.api.selectorLabels" . | nindent 4 }}
