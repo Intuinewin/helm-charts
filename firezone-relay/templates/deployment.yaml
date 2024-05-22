@@ -63,6 +63,10 @@ spec:
             - name: PUBLIC_IP6_ADDR
               value: {{ quote .Values.config.publicIPV6Addr }}
             {{- end }}
+            {{- if .Values.config.otlp.endpoint }}
+            - name: OTLP_GRPC_ENDPOINT
+              value: {{ quote .Values.config.otlp.endpoint }}
+            {{- end }}
             - name: HEALTH_CHECK_ADDR
               value: 0.0.0.0:9000
             {{- with .Values.extraEnv }}
