@@ -20,6 +20,10 @@ config:
   TURNHighestPort: 65535
   publicIPV4Addr:
   publicIPV6Addr:
+  otlp:
+    # Relay only supports GRPC endpoint
+    # Example value: localhost:4317
+    endpoint:
 
 replicas: 1
 revisionHistoryLimit: 10
