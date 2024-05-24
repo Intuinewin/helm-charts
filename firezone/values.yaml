@@ -133,6 +133,57 @@ global:
   # Common extra env for all pods
   extraEnv: []
 
+migrations:
+  enabled: true
+
+  backoffLimit: 6
+  activeDeadlineSeconds: 600
+  restartPolicy: OnFailure
+
+  image:
+    repository: ghcr.io/firezone/domain
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: ""
+
+  annotations:
+    helm.sh/hook: pre-install,pre-upgrade
+    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+
+  imagePullSecrets: []
+
+  args:
+    - /app/bin/migrate
+
+  extraEnv: []
+
+  podAnnotations: {}
+  podLabels: {}
+
+  podSecurityContext: {}
+  # fsGroup: 2000
+
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
+    readOnlyRootFilesystem: true
+
+  resources: {}
+
+  volumes: []
+
+  volumeMounts: []
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
 web:
   replicaCount: 1
   revisionHistoryLimit: 10
@@ -142,6 +193,10 @@ web:
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
+
+  args:
+    - /app/bin/web
+    - start
 
   imagePullSecrets: []
 
@@ -253,14 +308,18 @@ api:
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
 
+  args:
+    - /app/bin/api
+    - start
+
+  imagePullSecrets: []
+
   extraEnv: []
   releaseName: firezone
   # Only needed if kubernetes cluster module is disabled
   releaseHostname:
 
   backgroundJobsEnabled: false
-
-  imagePullSecrets: []
 
   podAnnotations: {}
   podLabels: {}
@@ -363,14 +422,18 @@ domain:
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
 
+  imagePullSecrets: []
+
+  args:
+    - /app/bin/domain
+    - start
+
   extraEnv: []
   releaseName: firezone
   # Only needed if kubernetes cluster module is disabled
   releaseHostname:
 
   backgroundJobsEnabled: true
-
-  imagePullSecrets: []
 
   podAnnotations: {}
   podLabels: {}

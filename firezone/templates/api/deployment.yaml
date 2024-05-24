@@ -39,6 +39,8 @@ spec:
             {{- toYaml .Values.api.securityContext | nindent 12 }}
           image: "{{ .Values.api.image.repository }}:{{ .Values.api.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.api.image.pullPolicy }}
+          args: 
+            {{- toYaml .Values.api.args | nindent 12 }}
           envFrom:
             - configMapRef:
                 name: {{ include "firezone.fullname" . }}
