@@ -2,9 +2,9 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: {{ include "firezone.api.serviceAccountName" . }}
+  name: {{ include "firezone.serviceAccountName" . }}
   labels:
-    {{- include "firezone.api.labels" . | nindent 4 }}
+    {{- include "firezone.labels" . | nindent 4 }}
 rules:
   - apiGroups:
       - ""

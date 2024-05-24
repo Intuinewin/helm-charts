@@ -30,7 +30,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "firezone.api.serviceAccountName" . }}
+      serviceAccountName: {{ include "firezone.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.api.podSecurityContext | nindent 8 }}
       containers:

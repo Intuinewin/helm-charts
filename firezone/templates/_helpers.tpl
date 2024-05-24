@@ -42,6 +42,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
 {{/*
+Create the name of the service account to use
+*/}}
+{{- define "firezone.serviceAccountName" -}}
+{{- if or (.Values.serviceAccount.create) (.Values.global.erlangCluster.enableKubernetesClusterModule) }}
+{{- default (include "firezone.fullname" .) .Values.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.serviceAccount.name }}
+{{- end }}
+{{- end }}
+
+{{/*
 Database env secrets
 */}}
 {{- define "firezone.database.auth" -}}
