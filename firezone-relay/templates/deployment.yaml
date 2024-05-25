@@ -45,7 +45,11 @@ spec:
             - name: FIREZONE_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: {{ required "Missing required secret containing the firezone token. Make sure to set `config.token.secret`" .Values.config.token.secret }}
+                  {{- if .Values.config.token.existingSecret }}
+                  name: {{ .Values.config.token.existingSecret  }}
+                  {{- else }}
+                  name: {{ include "firezone-relay.fullname" . }}
+                  {{- end }}
                   key: {{ .Values.config.token.key }}
             - name: RUST_LOG
               value: {{ .Values.logLevel }}
