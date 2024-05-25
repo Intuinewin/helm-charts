@@ -13,9 +13,11 @@ config:
   apiUrl: wss://api.firezone.dev
   enableMasquerade: true
   # Token provided to you by firezone
+  # You can specify it directly of reference an existing secret
   token:
-    secret:
     key: FIREZONE_TOKEN
+    value:
+    existingSecret:
 
 replicas: 1
 revisionHistoryLimit: 10
