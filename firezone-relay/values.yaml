@@ -13,9 +13,11 @@ logFormat: human
 config:
   apiUrl: wss://api.firezone.dev
   # Token provided to you by firezone
+  # You can specify it directly of reference an existing secret
   token:
-    secret:
     key: FIREZONE_TOKEN
+    value:
+    existingSecret:
   TURNLowestPort: 49152
   TURNHighestPort: 65535
   publicIPV4Addr:
