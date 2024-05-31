@@ -4,22 +4,24 @@ clusterDomain: cluster.local
 
 global:
   logLevel: debug
-  dockerRegistry: ghcr.io/firezone
 
-  # External http web URL
+  # External HTTP web URL
   # https://firezone.domain.tld
   externalWebURL:
   # External websocket API URL
   # wss://api.firezone.domain.tld
   externalApiWSURL:
+  # External HTTP API URL
   # https://api.firezone.domain.tld
   externalApiURL:
 
-  # OpenTelemetry
+  # Firezone supports OpenTelemetry for traces.
   otlp:
-    # HTTP Endpoint
+    # Firezone only supports HTTP endpoint
+    # Example value: http://localhost:4318
     endpoint:
 
+  # Postgres database configuration
   database:
     host:
     port:
@@ -36,9 +38,16 @@ global:
     pool_size:
     parameters:
 
+  # The erlang cluster is preconfigured to run with Kubernetes
+  # You only need to provide your nodes with a common RELEASE_COOKIE
   erlangCluster:
     epmdPort: 4369
     distributionPort: 9000
+
+    cookie:
+      secret:
+      key: RELEASE_COOKIE
+
     enableKubernetesClusterModule: true
     kubernetes:
       selector:
@@ -48,10 +57,8 @@ global:
     custom:
       adapter:
       opts:
-    cookie:
-      secret:
-      key: RELEASE_COOKIE
 
+  # Phoenix secrets
   phoenix:
     keyBase:
       secret:
@@ -66,6 +73,7 @@ global:
       secret:
       key: COOKIE_ENCRYPTION_SALT
 
+  # Firezone tokens secrets
   tokens:
     keyBase:
       secret:
@@ -73,7 +81,10 @@ global:
     salt:
       secret:
       key: TOKENS_SALT
-
+  
+  # Email configuration
+  # See all possible adapters and configurations
+  # https://github.com/swoosh/swoosh#adapters
   email:
     adapter: Elixir.Swoosh.Adapters.SMTP
     from: firezone@domain.tld
@@ -81,10 +92,18 @@ global:
       secret:
       key: OUTBOUND_EMAIL_ADAPTER_OPTS
 
+  # List of enabled auth providers
+  # You can find the full list in Firezone repository
+  # Example: token, email, openid_connect, google_workspace, ...
   authProviders:
     - token
     - email
 
+  # Docker registry used in the website when displaying
+  # deployment tutorials
+  dockerRegistry: ghcr.io/firezone
+
+  # Common extra env for all pods, useful for feature flags
   extraEnv: []
 
 web:
