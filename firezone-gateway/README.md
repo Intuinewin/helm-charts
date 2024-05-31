@@ -2,6 +2,8 @@
 
 Firezone documentation about deploying gateways: https://www.firezone.dev/kb/deploy/gateways
 
+## Quick Start
+
 ```bash
 helm repo add intuinewin https://intuinewin.github.io/helm-charts/
 helm install --set "config.token.value=<TOKEN>" my-gateway intuinewin/firezone-gateway
