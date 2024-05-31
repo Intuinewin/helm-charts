@@ -15,10 +15,10 @@ helm install \
 
 If you selfhost Firezone, you'll also need to set `config.apiUrl`
 
-You must provide the IPV4 and/or IPV6 on which the client or gateway can contact the relay. It must be accessible on multiple ports:
+You must provide the IPV4 and/or IPV6 on which clients or gateways can contact the relay. It must be accessible on multiple ports:
 - `3478` (STUN)
 - `config.TURNLowestPort`-`config.TURNHighestPort` (TURN)
 
-This helm chart only creates a service with these ports, you need to make it accessible on the provided IPV4/IPV6
+This helm chart only creates a service with these ports, you need to make it accessible on the provided IPV4/IPV6.
 
 See [values.yaml](./values.yaml) for all customization values

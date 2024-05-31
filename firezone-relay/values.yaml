@@ -11,19 +11,26 @@ fullnameOverride: ""
 logLevel: trace
 logFormat: human
 config:
+  # Websocket URL of the Firezone API
   apiUrl: wss://api.firezone.dev
   # Token provided to you by firezone
   # You can specify it directly of reference an existing secret
+  # Note: It can also be a path to a file containing the token
   token:
     key: FIREZONE_TOKEN
     value:
     existingSecret:
-  TURNLowestPort: 49152
-  TURNHighestPort: 65535
+  # The public IPv4 of the relay used by clients and gateways
   publicIPV4Addr:
+  # The public IPv6 of the relay used by clients and gateways
   publicIPV6Addr:
+  # The lowest port that can be used to relay traffic between clients and gateways
+  TURNLowestPort: 49152
+  # The highest port that can be used to relay traffic between clients and gateways
+  TURNHighestPort: 65535
+  # Firezone relay supports OpenTelemetry for both traces and metrics.
   otlp:
-    # Relay only supports GRPC endpoint
+    # Firezone relay only supports GRPC endpoint
     # Example value: localhost:4317
     endpoint:
 
