@@ -37,6 +37,10 @@ securityContext:
   capabilities:
     add:
       - NET_ADMIN
+      - MKNOD
+      - DAC_OVERRIDE
+    drop:
+      - ALL
   readOnlyRootFilesystem: true
 
 resources: {}
