@@ -55,6 +55,8 @@ spec:
               value: {{ .Values.logLevel }}
             - name: LOG_FORMAT
               value: {{ .Values.logFormat }}
+            - name: LISTEN_PORT
+              value: {{ quote .Values.config.listenPort }}
             - name: LOWEST_PORT
               value: {{ quote .Values.config.TURNLowestPort }}
             - name: HIGHEST_PORT
@@ -78,7 +80,7 @@ spec:
             {{- end }}
           ports:
             - name: stun
-              containerPort: 3478
+              containerPort: {{ .Values.config.listenPort }}
               protocol: UDP
             - name: health
               containerPort: 9000

@@ -28,6 +28,8 @@ config:
   TURNLowestPort: 49152
   # The highest port that can be used to relay traffic between clients and gateways
   TURNHighestPort: 65535
+  # The port to listen on for STUN messages
+  listenPort: 3478
   # Firezone relay supports OpenTelemetry for both traces and metrics.
   otlp:
     # Firezone relay only supports GRPC endpoint

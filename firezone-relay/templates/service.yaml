@@ -18,7 +18,7 @@ spec:
   externalTrafficPolicy: {{ .Values.service.externalTrafficPolicy }}
   ports:
     - name: stun
-      port: 3478
+      port: {{ .Values.config.listenPort }}
       protocol: UDP
       targetPort: stun
   {{- range $index, $port := (untilStep (int .Values.config.TURNLowestPort) (int (add (.Values.config.TURNHighestPort) 1)) 1) }}
