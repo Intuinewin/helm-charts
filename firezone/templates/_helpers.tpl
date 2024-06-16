@@ -42,66 +42,6 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
 {{/*
-Web Common labels
-*/}}
-{{- define "firezone.web.labels" -}}
-helm.sh/chart: {{ include "firezone.chart" . }}
-{{ include "firezone.web.selectorLabels" . }}
-{{- if .Chart.AppVersion }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-{{- end }}
-app.kubernetes.io/managed-by: {{ .Release.Service }}
-{{- end }}
-
-{{/*
-Web Selector labels
-*/}}
-{{- define "firezone.web.selectorLabels" -}}
-app.kubernetes.io/name: {{ printf "%s-%s" (include "firezone.fullname" $) "web" }}
-app.kubernetes.io/instance: {{ .Release.Name }}
-{{- end }}
-
-{{/*
-Api Common labels
-*/}}
-{{- define "firezone.api.labels" -}}
-helm.sh/chart: {{ include "firezone.chart" . }}
-{{ include "firezone.api.selectorLabels" . }}
-{{- if .Chart.AppVersion }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-{{- end }}
-app.kubernetes.io/managed-by: {{ .Release.Service }}
-{{- end }}
-
-{{/*
-Api Selector labels
-*/}}
-{{- define "firezone.api.selectorLabels" -}}
-app.kubernetes.io/name: {{ printf "%s-%s" (include "firezone.fullname" $) "api" }}
-app.kubernetes.io/instance: {{ .Release.Name }}
-{{- end }}
-
-{{/*
-Domain Common labels
-*/}}
-{{- define "firezone.domain.labels" -}}
-helm.sh/chart: {{ include "firezone.chart" . }}
-{{ include "firezone.domain.selectorLabels" . }}
-{{- if .Chart.AppVersion }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-{{- end }}
-app.kubernetes.io/managed-by: {{ .Release.Service }}
-{{- end }}
-
-{{/*
-Domain Selector labels
-*/}}
-{{- define "firezone.domain.selectorLabels" -}}
-app.kubernetes.io/name: {{ printf "%s-%s" (include "firezone.fullname" $) "domain" }}
-app.kubernetes.io/instance: {{ .Release.Name }}
-{{- end }}
-
-{{/*
 Database env secrets
 */}}
 {{- define "firezone.database.auth" -}}
