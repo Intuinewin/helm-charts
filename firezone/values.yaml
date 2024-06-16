@@ -99,6 +99,13 @@ global:
     - token
     - email
 
+  # Enable account creation from the portal
+  signup:
+    enabled: true
+    # List of email domains allowed to signup from.
+    # Leave empty to allow signing up from any domain.
+    whitelistedDomains: []
+
   # Docker registry used in the website when displaying
   # deployment tutorials
   dockerRegistry: ghcr.io/firezone

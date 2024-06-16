@@ -65,6 +65,12 @@ Common env
   value: {{ .Values.global.erlangCluster.epmdPort | quote }}
 - name: ERLANG_DISTRIBUTION_PORT
   value: {{ quote .Values.global.erlangCluster.distributionPort }}
+- name: FEATURE_SIGN_UP_ENABLED
+  value: {{ quote .Values.global.signup.enabled }}
+{{- if gt (len .Values.global.signup.whitelistedDomains) 0 }}
+- name: SIGN_UP_WHITELISTED_DOMAINS
+  value: {{ join "," .Values.global.signup.whitelistedDomains }}
+{{- end }}
 {{- end }}
 
 {{/*
