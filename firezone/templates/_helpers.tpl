@@ -71,6 +71,16 @@ Common env
 - name: SIGN_UP_WHITELISTED_DOMAINS
   value: {{ join "," .Values.global.signup.whitelistedDomains }}
 {{- end }}
+- name: FEATURE_SELF_HOSTED_RELAYS_ENABLED
+  value: {{ quote .Values.global.features.selfHostedRelays.enabled }}
+- name: FEATURE_MULTI_SITE_RESOURCES_ENABLED
+  value: {{ quote .Values.global.features.multiSiteResources.enabled }}
+- name: FEATURE_FLOW_ACTIVITIES_ENABLED
+  value: {{ quote .Values.global.features.flowActivities.enabled }}
+- name: FEATURE_REST_API_ENABLED
+  value: {{ quote .Values.global.features.restApi.enabled }}
+- name: FEATURE_POLICY_CONDITIONS_ENABLED
+  value: {{ quote .Values.global.features.policyConditions.enabled }}
 {{- end }}
 
 {{/*

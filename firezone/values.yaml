@@ -106,6 +106,20 @@ global:
     # Leave empty to allow signing up from any domain.
     whitelistedDomains: []
 
+  # These features must be activated globally and per
+  # account.
+  features:
+    selfHostedRelays:
+      enabled: false
+    multiSiteResources:
+      enabled: false
+    flowActivities:
+      enabled: false
+    restApi:
+      enabled: false
+    policyConditions:
+      enabled: false
+
   # Docker registry used in the website when displaying
   # deployment tutorials
   dockerRegistry: ghcr.io/firezone
