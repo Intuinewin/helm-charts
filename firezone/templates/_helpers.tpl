@@ -42,66 +42,6 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
 {{/*
-Web Common labels
-*/}}
-{{- define "firezone.web.labels" -}}
-helm.sh/chart: {{ include "firezone.chart" . }}
-{{ include "firezone.web.selectorLabels" . }}
-{{- if .Chart.AppVersion }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-{{- end }}
-app.kubernetes.io/managed-by: {{ .Release.Service }}
-{{- end }}
-
-{{/*
-Web Selector labels
-*/}}
-{{- define "firezone.web.selectorLabels" -}}
-app.kubernetes.io/name: {{ printf "%s-%s" (include "firezone.fullname" $) "web" }}
-app.kubernetes.io/instance: {{ .Release.Name }}
-{{- end }}
-
-{{/*
-Api Common labels
-*/}}
-{{- define "firezone.api.labels" -}}
-helm.sh/chart: {{ include "firezone.chart" . }}
-{{ include "firezone.api.selectorLabels" . }}
-{{- if .Chart.AppVersion }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-{{- end }}
-app.kubernetes.io/managed-by: {{ .Release.Service }}
-{{- end }}
-
-{{/*
-Api Selector labels
-*/}}
-{{- define "firezone.api.selectorLabels" -}}
-app.kubernetes.io/name: {{ printf "%s-%s" (include "firezone.fullname" $) "api" }}
-app.kubernetes.io/instance: {{ .Release.Name }}
-{{- end }}
-
-{{/*
-Domain Common labels
-*/}}
-{{- define "firezone.domain.labels" -}}
-helm.sh/chart: {{ include "firezone.chart" . }}
-{{ include "firezone.domain.selectorLabels" . }}
-{{- if .Chart.AppVersion }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-{{- end }}
-app.kubernetes.io/managed-by: {{ .Release.Service }}
-{{- end }}
-
-{{/*
-Domain Selector labels
-*/}}
-{{- define "firezone.domain.selectorLabels" -}}
-app.kubernetes.io/name: {{ printf "%s-%s" (include "firezone.fullname" $) "domain" }}
-app.kubernetes.io/instance: {{ .Release.Name }}
-{{- end }}
-
-{{/*
 Database env secrets
 */}}
 {{- define "firezone.database.auth" -}}
@@ -125,6 +65,22 @@ Common env
   value: {{ .Values.global.erlangCluster.epmdPort | quote }}
 - name: ERLANG_DISTRIBUTION_PORT
   value: {{ quote .Values.global.erlangCluster.distributionPort }}
+- name: FEATURE_SIGN_UP_ENABLED
+  value: {{ quote .Values.global.signup.enabled }}
+{{- if gt (len .Values.global.signup.whitelistedDomains) 0 }}
+- name: SIGN_UP_WHITELISTED_DOMAINS
+  value: {{ join "," .Values.global.signup.whitelistedDomains }}
+{{- end }}
+- name: FEATURE_SELF_HOSTED_RELAYS_ENABLED
+  value: {{ quote .Values.global.features.selfHostedRelays.enabled }}
+- name: FEATURE_MULTI_SITE_RESOURCES_ENABLED
+  value: {{ quote .Values.global.features.multiSiteResources.enabled }}
+- name: FEATURE_FLOW_ACTIVITIES_ENABLED
+  value: {{ quote .Values.global.features.flowActivities.enabled }}
+- name: FEATURE_REST_API_ENABLED
+  value: {{ quote .Values.global.features.restApi.enabled }}
+- name: FEATURE_POLICY_CONDITIONS_ENABLED
+  value: {{ quote .Values.global.features.policyConditions.enabled }}
 {{- end }}
 
 {{/*
