@@ -124,6 +124,17 @@ entries:
     version: 0.2.0
   firezone-gateway:
   - apiVersion: v2
+    appVersion: 1.1.1
+    created: "2024-06-27T11:43:41.5484699Z"
+    description: A Helm chart for deploying a firezone gateway
+    digest: 9566f7a8a3ebd1491e61d08e521ed57b5775d684d74b34f885bdddd8e7d743ff
+    icon: https://raw.githubusercontent.com/firezone/firezone/main/website/public/images/logo-main.svg
+    name: firezone-gateway
+    type: application
+    urls:
+    - https://github.com/Intuinewin/helm-charts/releases/download/firezone-gateway-0.10.0/firezone-gateway-0.10.0.tgz
+    version: 0.10.0
+  - apiVersion: v2
     appVersion: 1.1.0
     created: "2024-06-22T08:37:54.673342547Z"
     description: A Helm chart for deploying a firezone gateway
@@ -377,4 +388,4 @@ entries:
     urls:
     - https://github.com/Intuinewin/helm-charts/releases/download/firezone-relay-0.2.0/firezone-relay-0.2.0.tgz
     version: 0.2.0
-generated: "2024-06-25T08:15:02.405086177Z"
+generated: "2024-06-27T11:43:41.54861441Z"
