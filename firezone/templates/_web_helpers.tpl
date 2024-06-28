@@ -14,6 +14,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Web Selector labels
 */}}
 {{- define "firezone.web.selectorLabels" -}}
-app.kubernetes.io/name: {{ printf "%s-%s" (include "firezone.fullname" $) "web" }}
+app.kubernetes.io/name: {{ include "firezone.name" . }}
+app.kubernetes.io/component: web
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}

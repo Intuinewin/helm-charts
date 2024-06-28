@@ -14,6 +14,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Domain Selector labels
 */}}
 {{- define "firezone.domain.selectorLabels" -}}
-app.kubernetes.io/name: {{ printf "%s-%s" (include "firezone.fullname" $) "domain" }}
+app.kubernetes.io/name: {{ include "firezone.name" . }}
+app.kubernetes.io/component: domain
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
