@@ -14,6 +14,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Api Selector labels
 */}}
 {{- define "firezone.api.selectorLabels" -}}
-app.kubernetes.io/name: {{ printf "%s-%s" (include "firezone.fullname" $) "api" }}
+app.kubernetes.io/name: {{ include "firezone.name" . }}
+app.kubernetes.io/component: api
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
