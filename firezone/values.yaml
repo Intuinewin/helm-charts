@@ -192,13 +192,9 @@ web:
     targetCPUUtilizationPercentage: 80
     # targetMemoryUtilizationPercentage: 80
 
-  volumes:
-    - emptyDir: {}
-      name: var-firezone
+  volumes: []
 
-  volumeMounts:
-    - mountPath: /var/firezone
-      name: var-firezone
+  volumeMounts: []
 
   nodeSelector: {}
 
@@ -271,13 +267,9 @@ api:
     targetCPUUtilizationPercentage: 80
     # targetMemoryUtilizationPercentage: 80
 
-  volumes:
-    - emptyDir: {}
-      name: var-firezone
+  volumes: []
 
-  volumeMounts:
-    - mountPath: /var/firezone
-      name: var-firezone
+  volumeMounts: []
 
   nodeSelector: {}
 
@@ -330,13 +322,9 @@ domain:
     targetCPUUtilizationPercentage: 80
     # targetMemoryUtilizationPercentage: 80
 
-  volumes:
-    - emptyDir: {}
-      name: var-firezone
+  volumes: []
 
-  volumeMounts:
-    - mountPath: /var/firezone
-      name: var-firezone
+  volumeMounts: []
 
   nodeSelector: {}
 

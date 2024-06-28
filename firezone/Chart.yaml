@@ -1,6 +1,6 @@
 apiVersion: v2
 name: firezone
-version: 0.7.0
+version: 0.7.1
 appVersion: f80e550c77328d08745209b17988f0c33154495b
 type: application
 description: A Helm chart for deploying firezone
