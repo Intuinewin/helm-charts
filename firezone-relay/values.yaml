@@ -1,7 +1,5 @@
 image:
-  # TODO: https://github.com/firezone/firezone/issues/5447
-  # repository: ghcr.io/firezone/relay
-  repository: us-east1-docker.pkg.dev/firezone-prod/firezone/relay
+  repository: ghcr.io/firezone/relay
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
