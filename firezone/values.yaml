@@ -132,9 +132,7 @@ web:
   revisionHistoryLimit: 10
 
   image:
-    # TODO: https://github.com/firezone/firezone/issues/5447
-    # repository: ghcr.io/firezone/web
-    repository: us-east1-docker.pkg.dev/firezone-prod/firezone/web
+    repository: ghcr.io/firezone/web
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
@@ -207,9 +205,7 @@ api:
   revisionHistoryLimit: 10
 
   image:
-    # TODO: https://github.com/firezone/firezone/issues/5447
-    # repository: ghcr.io/firezone/api
-    repository: us-east1-docker.pkg.dev/firezone-prod/firezone/api
+    repository: ghcr.io/firezone/api
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
@@ -282,9 +278,7 @@ domain:
   revisionHistoryLimit: 10
 
   image:
-    # TODO: https://github.com/firezone/firezone/issues/5447
-    # repository: ghcr.io/firezone/domain
-    repository: us-east1-docker.pkg.dev/firezone-prod/firezone/domain
+    repository: ghcr.io/firezone/domain
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
