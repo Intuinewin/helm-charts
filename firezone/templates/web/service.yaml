@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "firezone.web.fullname" }}
+  name: {{ include "firezone.web.fullname" . }}
   labels:
     {{- include "firezone.web.labels" . | nindent 4 }}
     {{ .Values.global.erlangCluster.kubernetes.selector.key }}: {{ .Values.global.erlangCluster.kubernetes.selector.value }}

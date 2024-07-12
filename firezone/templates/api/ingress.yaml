@@ -1,5 +1,5 @@
 {{- if .Values.api.ingress.enabled -}}
-{{- $fullName := include "firezone.api.fullname" -}}
+{{- $fullName := include "firezone.api.fullname" . -}}
 {{- $svcPort := .Values.api.service.port -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress

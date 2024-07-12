@@ -1,5 +1,5 @@
 {{- define "firezone.web.fullname" -}}
-{{ printf "%s-%s" (include "firezone.fullname" $) "web" }}
+{{- printf "%s-%s" (include "firezone.fullname" $) "web" -}}
 {{- end }}
 
 {{/*

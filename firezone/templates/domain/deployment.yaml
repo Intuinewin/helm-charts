@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "firezone.domain.fullname" }}
+  name: {{ include "firezone.domain.fullname" . }}
   labels:
     {{- include "firezone.domain.labels" . | nindent 4 }}
 spec:
