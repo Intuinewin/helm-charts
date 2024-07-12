@@ -2,14 +2,14 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{  printf "%s-%s" (include "firezone.fullname" $) "api" }}
+  name: {{ include "firezone.api.fullname" . }}
   labels:
     {{- include "firezone.api.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ printf "%s-%s" (include "firezone.fullname" $) "api" }}
+    name: {{ include "firezone.api.fullname" . }}
   minReplicas: {{ .Values.api.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.api.autoscaling.maxReplicas }}
   metrics:

@@ -1,3 +1,7 @@
+{{- define "firezone.domain.fullname" -}}
+{{- printf "%s-%s" (include "firezone.fullname" $) "domain" -}}
+{{- end }}
+
 {{/*
 Domain Common labels
 */}}
@@ -17,4 +21,15 @@ Domain Selector labels
 app.kubernetes.io/name: {{ include "firezone.name" . }}
 app.kubernetes.io/component: domain
 app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "firezone.domain.serviceAccountName" -}}
+{{- if or (.Values.domain.serviceAccount.create) (.Values.global.erlangCluster.enableKubernetesClusterModule) }}
+{{- default (include "firezone.domain.fullname" .) .Values.domain.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.domain.serviceAccount.name }}
+{{- end }}
 {{- end }}

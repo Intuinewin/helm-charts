@@ -1,5 +1,5 @@
 {{- if .Values.web.ingress.enabled -}}
-{{- $fullName := printf "%s-%s" (include "firezone.fullname" $) "web" -}}
+{{- $fullName := include "firezone.web.fullname" . -}}
 {{- $svcPort := .Values.web.service.port -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
