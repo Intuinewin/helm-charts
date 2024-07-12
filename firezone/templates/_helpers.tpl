@@ -128,14 +128,3 @@ Common env secrets
       name: {{ required "Missing `firezone.email.opts.secret`" .Values.global.email.opts.secret }}
       key: {{ required "Missing `firezone.email.opts.key`" .Values.global.email.opts.key }}
 {{- end }}
-
-{{/*
-Create the name of the service account to use
-*/}}
-{{- define "firezone.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create }}
-{{- default (include "firezone.fullname" .) .Values.serviceAccount.name }}
-{{- else }}
-{{- default "default" .Values.serviceAccount.name }}
-{{- end }}
-{{- end }}
