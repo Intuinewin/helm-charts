@@ -28,7 +28,7 @@ Create the name of the service account to use
 */}}
 {{- define "firezone.api.serviceAccountName" -}}
 {{- if or (.Values.api.serviceAccount.create) (.Values.global.erlangCluster.enableKubernetesClusterModule) }}
-{{- default (include "firezone.fullname" .) .Values.api.serviceAccount.name }}
+{{- default (include "firezone.api.fullname" .) .Values.api.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.api.serviceAccount.name }}
 {{- end }}
