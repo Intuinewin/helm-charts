@@ -1,3 +1,7 @@
+{{- define "firezone.domain.fullname" -}}
+{{ printf "%s-%s" (include "firezone.fullname" $) "domain" }}
+{{- end }}
+
 {{/*
 Domain Common labels
 */}}

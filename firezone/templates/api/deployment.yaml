@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ printf "%s-%s" (include "firezone.fullname" $) "api" }}
+  name: {{ include "firezone.api.fullname" }}
   labels:
     {{- include "firezone.api.labels" . | nindent 4 }}
 spec:

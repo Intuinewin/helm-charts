@@ -2,14 +2,14 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{  printf "%s-%s" (include "firezone.fullname" $) "domain" }}
+  name: {{ include "firezone.domain.fullname" }}
   labels:
     {{- include "firezone.domain.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ printf "%s-%s" (include "firezone.fullname" $) "domain" }}
+    name: {{ include "firezone.domain.fullname" }}
   minReplicas: {{ .Values.domain.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.domain.autoscaling.maxReplicas }}
   metrics:

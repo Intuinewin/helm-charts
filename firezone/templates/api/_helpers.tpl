@@ -1,3 +1,7 @@
+{{- define "firezone.api.fullname" -}}
+{{ printf "%s-%s" (include "firezone.fullname" $) "api" }}
+{{- end }}
+
 {{/*
 Api Common labels
 */}}
