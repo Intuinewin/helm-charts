@@ -211,6 +211,13 @@ web:
     # If not set and create is true, a name is generated using the fullname template
     name: ""
 
+  pdb:
+    enabled: false
+    labels: {}
+    annotations: {}
+    minAvailable: ""
+    maxUnavailable: ""
+
 api:
   replicaCount: 1
   revisionHistoryLimit: 10
@@ -295,6 +302,13 @@ api:
     # If not set and create is true, a name is generated using the fullname template
     name: ""
 
+  pdb:
+    enabled: false
+    labels: {}
+    annotations: {}
+    minAvailable: ""
+    maxUnavailable: ""
+
 domain:
   replicaCount: 1
   revisionHistoryLimit: 10
@@ -358,3 +372,10 @@ domain:
     # The name of the service account to use.
     # If not set and create is true, a name is generated using the fullname template
     name: ""
+
+  pdb:
+    enabled: false
+    labels: {}
+    annotations: {}
+    minAvailable: ""
+    maxUnavailable: ""
