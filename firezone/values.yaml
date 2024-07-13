@@ -124,7 +124,7 @@ global:
   # deployment tutorials
   dockerRegistry: ghcr.io/firezone
 
-  # Common extra env for all pods, useful for feature flags
+  # Common extra env for all pods
   extraEnv: []
 
 web:
