@@ -59,3 +59,17 @@ serviceAccount:
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+pdb:
+  enabled: false
+  labels: {}
+  annotations: {}
+  minAvailable: ""
+  maxUnavailable: ""
