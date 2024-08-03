@@ -159,7 +159,7 @@ web:
     capabilities:
       drop:
         - ALL
-    readOnlyRootFilesystem: true
+    readOnlyRootFilesystem: false
 
   service:
     type: ClusterIP
@@ -250,7 +250,7 @@ api:
     capabilities:
       drop:
         - ALL
-    readOnlyRootFilesystem: true
+    readOnlyRootFilesystem: false
 
   service:
     type: ClusterIP
@@ -341,7 +341,7 @@ domain:
     capabilities:
       drop:
         - ALL
-    readOnlyRootFilesystem: true
+    readOnlyRootFilesystem: false
 
   service:
     type: ClusterIP
