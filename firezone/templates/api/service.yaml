@@ -4,7 +4,6 @@ metadata:
   name: {{ include "firezone.api.fullname" . }}
   labels:
     {{- include "firezone.api.labels" . | nindent 4 }}
-    {{ .Values.global.erlangCluster.kubernetes.selector.key }}: {{ .Values.global.erlangCluster.kubernetes.selector.value }}
 spec:
   type: {{ .Values.api.service.type }}
   ports:

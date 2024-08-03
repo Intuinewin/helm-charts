@@ -24,6 +24,7 @@ spec:
         {{- with .Values.api.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
+        {{ .Values.global.erlangCluster.kubernetes.selector.key }}: {{ .Values.global.erlangCluster.kubernetes.selector.value }}
     spec:
       {{- with .Values.api.imagePullSecrets }}
       imagePullSecrets:

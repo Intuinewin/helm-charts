@@ -41,7 +41,7 @@ data:
       "kubernetes_node_basename":"{{ .Values.web.releaseName }}",
       "kubernetes_selector":"{{ .Values.global.erlangCluster.kubernetes.selector.key }}={{ .Values.global.erlangCluster.kubernetes.selector.value }}",
       "kubernetes_namespace":"{{ .Release.Namespace }}",
-      "kubernetes_ip_lookup_mode":"endpoints"
+      "kubernetes_ip_lookup_mode":"pods"
     }
   {{- else }}
   ERLANG_CLUSTER_ADAPTER: {{ .Values.global.erlangCluster.custom.adapter }}
