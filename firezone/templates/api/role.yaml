@@ -7,7 +7,7 @@ rules:
   - apiGroups:
       - ""
     resources:
-      - endpoints
+      - pods
     verbs:
       - list
 {{- end }}
