@@ -45,7 +45,9 @@ spec:
           env:
             - name: PHOENIX_HTTP_WEB_PORT
               value: {{ quote .Values.web.service.port }}
-            - name: EXTERNAL_URL
+            - name: API_EXTERNAL_URL
+              value: {{ required "Missing `firezone.externalApiURL`" .Values.global.externalApiURL }}
+            - name: WEB_EXTERNAL_URL
               value: {{ required "Missing `firezone.externalWebURL`" .Values.global.externalWebURL }}
             - name: API_URL_OVERRIDE
               value: {{ required "Missing `firezone.externalApiWSURL`" .Values.global.externalApiWSURL }}

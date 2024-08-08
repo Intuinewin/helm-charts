@@ -45,8 +45,10 @@ spec:
           env:
             - name: PHOENIX_HTTP_API_PORT
               value: {{ quote .Values.api.service.port }}
-            - name: EXTERNAL_URL
+            - name: API_EXTERNAL_URL
               value: {{ required "Missing `firezone.externalApiURL`" .Values.global.externalApiURL }}
+            - name: WEB_EXTERNAL_URL
+              value: {{ required "Missing `firezone.externalWebURL`" .Values.global.externalWebURL }}
             - name: RELEASE_NAME
               {{- if (and .Values.global.erlangCluster.enableKubernetesClusterModule (ne .Values.web.releaseName .Values.api.releaseName)) }}
               {{- required "api and web release names must be identical when using default kubernetes cluster module" "" }}

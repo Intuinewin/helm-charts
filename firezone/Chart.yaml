@@ -1,7 +1,7 @@
 apiVersion: v2
 name: firezone
-version: 0.9.2
-appVersion: 7703daea2e43df155dab55a802654f07102c51e9
+version: 0.10.0
+appVersion: cf874740989c9ab816ba0d714395fe477d4ab1f6
 type: application
 description: A Helm chart for deploying firezone
 icon: https://raw.githubusercontent.com/firezone/firezone/main/website/public/images/logo-main.svg
