@@ -57,10 +57,6 @@ spec:
                   name: {{ include "firezone-gateway.fullname" . }}
                   {{- end }}
                   key: {{ .Values.config.token.key }}
-            {{- if .Values.config.enableMasquerade}}
-            - name: FIREZONE_ENABLE_MASQUERADE
-              value: "1"
-            {{- end }}
             - name: RUST_LOG
               value: {{ .Values.logLevel }}
             - name: HEALTH_CHECK_ADDR

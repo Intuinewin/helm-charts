@@ -12,8 +12,6 @@ logLevel: trace
 config:
   # Websocket URL of the Firezone API
   apiUrl: wss://api.firezone.dev
-  # Whether to enable masquerading on wireguard interface
-  enableMasquerade: true
   # Token provided to you by Firezone
   # You can specify it directly of reference an existing secret
   # Note: It can also be a path to a file containing the token
