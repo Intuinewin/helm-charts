@@ -32,7 +32,6 @@ data:
   DATABASE_PARAMETERS: {{ .Values.global.database.parameters | toJson }}
   {{- end }}
   # Erlang Cluster
-  ERLANG_DISTRIBUTION_PORT: {{ quote .Values.global.erlangCluster.distributionPort }}
   {{- if .Values.global.erlangCluster.enableKubernetesClusterModule }}
   ERLANG_CLUSTER_ADAPTER: Elixir.Cluster.Strategy.Kubernetes
   ERLANG_CLUSTER_ADAPTER_CONFIG: |
