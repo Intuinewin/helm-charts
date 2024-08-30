@@ -9,7 +9,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 logLevel: trace
-logFormat: human
+logFormat: json
 config:
   # Websocket URL of the Firezone API
   apiUrl: wss://api.firezone.dev
