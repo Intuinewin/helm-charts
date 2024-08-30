@@ -1,5 +1,5 @@
 {{- define "firezone.api.fullname" -}}
-{{- printf "%s-%s" (include "firezone.fullname" $) "api" -}}
+{{- printf "%s-%s" (include "firezone.fullname" $) "api" | trunc 63 | trimSuffix "-" -}}
 {{- end }}
 
 {{/*
