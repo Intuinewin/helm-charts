@@ -345,9 +345,6 @@ domain:
         - ALL
     readOnlyRootFilesystem: false
 
-  service:
-    type: ClusterIP
-
   resources: {}
 
   autoscaling:
