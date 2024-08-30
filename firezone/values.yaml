@@ -119,6 +119,8 @@ global:
       enabled: false
     policyConditions:
       enabled: false
+    internetResource:
+      enabled: false
 
   # Docker registry used in the website when displaying
   # deployment tutorials

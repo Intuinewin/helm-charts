@@ -81,6 +81,8 @@ Common env
   value: {{ quote .Values.global.features.restApi.enabled }}
 - name: FEATURE_POLICY_CONDITIONS_ENABLED
   value: {{ quote .Values.global.features.policyConditions.enabled }}
+- name: FEATURE_INTERNET_RESOURCE_ENABLED
+  value: {{ quote .Values.global.features.internetResource.enabled }}
 {{- end }}
 
 {{/*
