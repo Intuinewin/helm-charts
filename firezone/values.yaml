@@ -109,18 +109,20 @@ global:
   # These features must be activated globally and per
   # account.
   features:
-    selfHostedRelays:
-      enabled: false
-    multiSiteResources:
-      enabled: false
+    idpSync:
+      enabled: true
     flowActivities:
-      enabled: false
-    restApi:
-      enabled: false
+      enabled: true
+    selfHostedRelays:
+      enabled: true
+    multiSiteResources:
+      enabled: true
     policyConditions:
-      enabled: false
+      enabled: true
+    restApi:
+      enabled: true
     internetResource:
-      enabled: false
+      enabled: true
 
   # Docker registry used in the website when displaying
   # deployment tutorials
