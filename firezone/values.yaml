@@ -168,6 +168,8 @@ web:
   service:
     type: ClusterIP
     port: 8000
+    targetPort: 8000
+    portName: http
 
   ingress:
     enabled: false
@@ -259,6 +261,8 @@ api:
   service:
     type: ClusterIP
     port: 8000
+    targetPort: 8000
+    portName: http
 
   ingress:
     enabled: false

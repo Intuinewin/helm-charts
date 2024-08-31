@@ -44,7 +44,7 @@ spec:
                 name: {{ include "firezone.fullname" . }}
           env:
             - name: PHOENIX_HTTP_API_PORT
-              value: {{ quote .Values.api.service.port }}
+              value: {{ quote .Values.api.service.targetPort }}
             - name: API_EXTERNAL_URL
               value: {{ required "Missing `firezone.externalApiURL`" .Values.global.externalApiURL }}
             - name: WEB_EXTERNAL_URL
@@ -76,7 +76,7 @@ spec:
             {{- end }}
           ports:
             - name: http
-              containerPort: {{ .Values.api.service.port }}
+              containerPort: {{ .Values.api.service.targetPort }}
               protocol: TCP
             - name: epmd
               containerPort: {{ .Values.global.erlangCluster.epmdPort }}
