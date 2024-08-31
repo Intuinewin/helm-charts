@@ -66,6 +66,9 @@ nodeSelector: {}
 tolerations: []
 affinity: {}
 
+dnsPolicy: ~
+dnsConfig: {}
+
 service:
   type: ClusterIP
   annotations: {}
