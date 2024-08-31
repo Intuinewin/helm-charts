@@ -82,10 +82,20 @@ spec:
             httpGet:
               path: /healthz
               port: http
+            initialDelaySeconds: {{ .Values.domain.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.domain.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.domain.livenessProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.domain.livenessProbe.successThreshold }}
+            failureThreshold: {{ .Values.domain.livenessProbe.failureThreshold }}
           readinessProbe:
             httpGet:
               path: /healthz
               port: http
+            initialDelaySeconds: {{ .Values.domain.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.domain.readinessProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.domain.readinessProbe.timeoutSeconds }}
+            successThreshold: {{ .Values.domain.readinessProbe.successThreshold }}
+            failureThreshold: {{ .Values.domain.readinessProbe.failureThreshold }}
           resources:
             {{- toYaml .Values.domain.resources | nindent 12 }}
           {{- with .Values.domain.volumeMounts }}
