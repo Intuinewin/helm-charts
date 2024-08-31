@@ -122,3 +122,10 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- if .Values.web.dnsPolicy }}
+      dnsPolicy: {{ .Values.web.dnsPolicy }}
+      {{- end }}
+      {{- with .Values.web.dnsConfig }}
+      dnsConfig:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

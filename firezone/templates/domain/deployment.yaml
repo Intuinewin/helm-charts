@@ -118,3 +118,10 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- if .Values.domain.dnsPolicy }}
+      dnsPolicy: {{ .Values.domain.dnsPolicy }}
+      {{- end }}
+      {{- with .Values.domain.dnsConfig }}
+      dnsConfig:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
