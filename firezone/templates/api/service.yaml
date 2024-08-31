@@ -8,8 +8,8 @@ spec:
   type: {{ .Values.api.service.type }}
   ports:
     - port: {{ .Values.api.service.port }}
-      targetPort: http
+      targetPort: {{ .Values.api.service.targetPort }}
       protocol: TCP
-      name: http
+      name: {{ .Values.api.service.portName }}
   selector:
     {{- include "firezone.api.selectorLabels" . | nindent 4 }}
