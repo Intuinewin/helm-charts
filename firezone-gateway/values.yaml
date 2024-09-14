@@ -31,14 +31,7 @@ podLabels: {}
 
 podSecurityContext: {}
 securityContext:
-  allowPrivilegeEscalation: false
-  capabilities:
-    add:
-      - NET_ADMIN
-      - MKNOD
-      - DAC_OVERRIDE
-    drop:
-      - ALL
+  privileged: true
   readOnlyRootFilesystem: true
 
 resources: {}
