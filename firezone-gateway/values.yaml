@@ -19,6 +19,8 @@ config:
     key: FIREZONE_TOKEN
     value:
     existingSecret:
+  telemetry:
+    enabled: true
 
 replicas: 1
 revisionHistoryLimit: 10
