@@ -62,7 +62,7 @@ spec:
             - name: HEALTH_CHECK_ADDR
               value: 0.0.0.0:9000
             - name: FIREZONE_NO_TELEMETRY
-              value: {{ quote .Values.config.telemetry.enabled }}
+              value: {{ quote (not .Values.config.telemetry.enabled) }}
             {{- with .Values.extraEnv }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
