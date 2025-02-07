@@ -709,6 +709,17 @@ entries:
   firezone-relay:
   - apiVersion: v2
     appVersion: 709037bce5248589f6b7ab3f87ffc37e022e3b8e
+    created: "2025-02-07T17:06:29.157401205Z"
+    description: A Helm chart for deploying a firezone relay
+    digest: b0777184a4df3eff90e97d088b9aee2b23097c5e8d86e79a9d15a6c9f1db4797
+    icon: https://raw.githubusercontent.com/firezone/firezone/main/website/public/images/logo-main.svg
+    name: firezone-relay
+    type: application
+    urls:
+    - https://github.com/Intuinewin/helm-charts/releases/download/firezone-relay-0.18.2/firezone-relay-0.18.2.tgz
+    version: 0.18.2
+  - apiVersion: v2
+    appVersion: 709037bce5248589f6b7ab3f87ffc37e022e3b8e
     created: "2025-02-07T12:22:42.918397034Z"
     description: A Helm chart for deploying a firezone relay
     digest: a83dfe7caa2c691eeea9fa42e15553ab9154ab32661c88dbe56585888f6e3670
@@ -1026,4 +1037,4 @@ entries:
     urls:
     - https://github.com/Intuinewin/helm-charts/releases/download/firezone-relay-0.2.0/firezone-relay-0.2.0.tgz
     version: 0.2.0
-generated: "2025-02-07T12:22:42.918826458Z"
+generated: "2025-02-07T17:06:29.157820743Z"
