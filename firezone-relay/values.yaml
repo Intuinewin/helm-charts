@@ -76,6 +76,7 @@ service:
   ipFamilies:
     - IPv4
   externalTrafficPolicy: Local
+  loadBalancerClass: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
