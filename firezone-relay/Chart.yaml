@@ -1,7 +1,7 @@
 apiVersion: v2
 name: firezone-relay
-version: 0.18.2
-appVersion: 709037bce5248589f6b7ab3f87ffc37e022e3b8e
+version: 0.19.0
+appVersion: d9a513fa54f1f7d7ddcb88d80bc66a9a15055313
 type: application
 description: A Helm chart for deploying a firezone relay
 icon: https://raw.githubusercontent.com/firezone/firezone/main/website/public/images/logo-main.svg

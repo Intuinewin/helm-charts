@@ -43,6 +43,8 @@ spec:
             - configMapRef:
                 name: {{ include "firezone.fullname" . }}
           env:
+            - name: API_EXTERNAL_URL
+              value: {{ required "Missing `firezone.externalApiURL`" .Values.global.externalApiURL }}
             - name: RELEASE_NAME
               {{- if (and .Values.global.erlangCluster.enableKubernetesClusterModule (ne .Values.web.releaseName .Values.domain.releaseName)) }}
               {{- required "domain and web release names must be identical when using default kubernetes cluster module" "" }}
