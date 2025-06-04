@@ -15,6 +15,12 @@ interactive shell.
 
 ### Notes:
 
+Postgres:
+  - `wal_level` must be set to `logical`
+  - Some migrations require superuser rights
+    - 20250428102100
+    - 20250430195212
+
 For some features of Firezone, you'll need to both:
   - Enable them globally in the chart `config.features.{}.enabled = true`
   - Enable them per account in the database
