@@ -69,6 +69,8 @@ Common env
   value: {{ quote .Values.global.features.idpSync.enabled }}
 - name: FEATURE_SIGN_UP_ENABLED
   value: {{ quote .Values.global.signup.enabled }}
+- name: RUN_MANUAL_MIGRATIONS
+  value: {{ quote .Values.global.runManualMigrations }}
 {{- if gt (len .Values.global.signup.whitelistedDomains) 0 }}
 - name: SIGN_UP_WHITELISTED_DOMAINS
   value: {{ join "," .Values.global.signup.whitelistedDomains }}
