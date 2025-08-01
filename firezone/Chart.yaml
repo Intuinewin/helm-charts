@@ -1,6 +1,7 @@
 apiVersion: v2
 name: firezone
 version: 0.24.0
+# renovate: datasource=custom.firezone depName=portal
 appVersion: 3ff31e3a33f923c876e59503ba23497bf6447474
 type: application
 description: A Helm chart for deploying firezone

@@ -1,0 +1,55 @@
+{
+  "extends": [
+    "config:recommended"
+  ],
+  "customDatasources": {
+    "firezone": {
+      "defaultRegistryUrlTemplate": "https://www.firezone.dev/api/releases",
+      "format": "json",
+      "transformTemplates": [
+        "{\"releases\":[{\"version\":{{packageName}},\"sourceUrl\":$join([\"https://github.com/firezone/firezone/commit/\",{{packageName}}])}],\"sourceUrl\": \"https://github.com/firezone/firezone\",\"homepage\": \"https://www.firezone.dev/\"}"
+      ]
+    }
+  },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)Chart\\.yaml$/"
+      ],
+      "matchStrings": [
+        "#\\s*renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\n.*?\"(?<currentValue>.*)\"\n",
+        "#\\s*renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\n[^:]*:\\s+\"?(?<currentValue>.*)\"?\n"
+      ],
+      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}"
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "Firezone portal versioning",
+      "matchDatasources": [
+        "custom.firezone"
+      ],
+      "matchDepNames": [
+        "portal"
+      ],
+      "versioning": "regex:^(?<patch>\\w+)$"
+    },
+    {
+      "matchFileNames": [
+        "/(^|/)Chart\\.yaml$/"
+      ],
+      "bumpVersions": [
+        {
+          "filePatterns": [
+            "{{packageFileDir}}/Chart.yaml"
+          ],
+          "matchStrings": [
+            "version:\\s(?<version>[^\\s]+)"
+          ],
+          "bumpType": "minor"
+        }
+      ]
+    }
+  ]
+}
