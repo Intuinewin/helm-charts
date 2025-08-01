@@ -39,6 +39,7 @@
       "matchFileNames": [
         "/(^|/)Chart\\.yaml$/"
       ],
+      "additionalBranchPrefix": "{{baseDir}}-",
       "bumpVersions": [
         {
           "filePatterns": [
