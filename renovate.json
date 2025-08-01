@@ -2,6 +2,8 @@
   "extends": [
     "config:recommended"
   ],
+  "prConcurrentLimit": 0,
+  "prHourlyLimit": 0,
   "customDatasources": {
     "firezone": {
       "defaultRegistryUrlTemplate": "https://www.firezone.dev/api/releases",
