@@ -1,8 +1,8 @@
 apiVersion: v2
 name: firezone-relay
-version: 0.28.0
+version: 0.29.0
 # renovate-digest: datasource=custom.firezone-portal depName=portal
-appVersion: 685acdac3ab02c1178e855ad8c22db9f3e60e658
+appVersion: e9e87925124c5f7fa1d6a62c0cfc8706c44eb31f
 type: application
 description: A Helm chart for deploying a firezone relay
 icon: https://raw.githubusercontent.com/firezone/firezone/main/website/public/images/logo-main.svg
