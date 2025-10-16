@@ -61,6 +61,8 @@ spec:
               value: {{ .Values.logLevel }}
             - name: HEALTH_CHECK_ADDR
               value: 0.0.0.0:9000
+            - name: FIREZONE_NO_INC_BUF
+              value: {{ quote (not .Values.config.increaseKernelBuffers) }}
             - name: FIREZONE_NO_TELEMETRY
               value: {{ quote (not .Values.config.telemetry.enabled) }}
             {{- with .Values.extraEnv }}

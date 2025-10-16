@@ -21,6 +21,7 @@ config:
     existingSecret:
   telemetry:
     enabled: true
+  increaseKernelBuffers: false
 
 replicas: 1
 revisionHistoryLimit: 10
