@@ -1,8 +1,8 @@
 apiVersion: v2
 name: firezone-gateway
-version: 0.27.0
+version: 0.28.0
 # renovate: datasource=custom.firezone depName=gateway
-appVersion: "1.4.17"
+appVersion: "1.4.18"
 type: application
 description: A Helm chart for deploying a firezone gateway
 icon: https://raw.githubusercontent.com/firezone/firezone/main/website/public/images/logo-main.svg

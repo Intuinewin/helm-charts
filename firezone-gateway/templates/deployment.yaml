@@ -65,6 +65,8 @@ spec:
               value: {{ quote (not .Values.config.increaseKernelBuffers) }}
             - name: FIREZONE_NO_TELEMETRY
               value: {{ quote (not .Values.config.telemetry.enabled) }}
+            - name: FIREZONE_LOG_FORMAT
+              value: {{ .Values.logFormat }}
             {{- with .Values.extraEnv }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
