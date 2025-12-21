@@ -13,7 +13,6 @@ data:
   {{- if .Values.global.otlp.endpoint }}
   OTLP_ENDPOINT: {{ .Values.global.otlp.endpoint }}
   {{- end }}
-  AUTH_PROVIDER_ADAPTERS: {{ join "," .Values.global.authProviders }}
   # Email
   OUTBOUND_EMAIL_ADAPTER: {{ .Values.global.email.adapter }}
   OUTBOUND_EMAIL_FROM: {{ .Values.global.email.from }}
