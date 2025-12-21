@@ -26,9 +26,8 @@ global:
     host:
     port:
     database:
-    ssl:
-      enabled: false
-      opts:
+    # It can be true/false or a JSON object with SSL options
+    ssl: false
     username:
       secret:
       key: username
@@ -92,13 +91,6 @@ global:
       secret:
       key: OUTBOUND_EMAIL_ADAPTER_OPTS
 
-  # List of enabled auth providers
-  # You can find the full list in Firezone repository
-  # Example: token, email, openid_connect, google_workspace, ...
-  authProviders:
-    - token
-    - email
-
   # Enable account creation from the portal
   signup:
     enabled: true
@@ -110,10 +102,6 @@ global:
   # account.
   features:
     idpSync:
-      enabled: true
-    flowActivities:
-      enabled: true
-    selfHostedRelays:
       enabled: true
     multiSiteResources:
       enabled: true
@@ -138,7 +126,7 @@ web:
   revisionHistoryLimit: 10
 
   image:
-    repository: ghcr.io/firezone/web
+    repository: ghcr.io/firezone/portal
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
@@ -248,7 +236,7 @@ api:
   revisionHistoryLimit: 10
 
   image:
-    repository: ghcr.io/firezone/api
+    repository: ghcr.io/firezone/portal
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
@@ -358,7 +346,7 @@ domain:
   revisionHistoryLimit: 10
 
   image:
-    repository: ghcr.io/firezone/domain
+    repository: ghcr.io/firezone/portal
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
