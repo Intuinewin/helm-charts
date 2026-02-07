@@ -23,6 +23,8 @@ config:
   telemetry:
     enabled: true
   increaseKernelBuffers: false
+  flowLogs:
+    enabled: false
 
 replicas: 1
 revisionHistoryLimit: 10

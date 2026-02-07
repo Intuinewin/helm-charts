@@ -67,6 +67,8 @@ spec:
               value: {{ quote (not .Values.config.telemetry.enabled) }}
             - name: FIREZONE_LOG_FORMAT
               value: {{ .Values.logFormat }}
+            - name: FIREZONE_FLOW_LOGS
+              value : {{ quote .Values.config.flowLogs.enabled }}
             {{- with .Values.extraEnv }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
