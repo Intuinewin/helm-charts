@@ -13,7 +13,6 @@ data:
   {{- if .Values.global.otlp.endpoint }}
   OTLP_ENDPOINT: {{ .Values.global.otlp.endpoint }}
   {{- end }}
-  AUTH_PROVIDER_ADAPTERS: {{ join "," .Values.global.authProviders }}
   # Email
   OUTBOUND_EMAIL_ADAPTER: {{ .Values.global.email.adapter }}
   OUTBOUND_EMAIL_FROM: {{ .Values.global.email.from }}
@@ -21,10 +20,7 @@ data:
   DATABASE_HOST: {{ required "Missing `firezone.database.host`" .Values.global.database.host }}
   DATABASE_PORT: {{ quote (required "Missing `firezone.database.port`" .Values.global.database.port) }}
   DATABASE_NAME: {{ required "Missing `firezone.database.database`" .Values.global.database.database }}
-  DATABASE_SSL_ENABLED: {{ quote .Values.global.database.ssl.enabled }}
-  {{- if .Values.global.database.ssl.enabled }}
-  DATABASE_SSL_OPTS: {{ .Values.global.database.ssl.opts | toJson }}
-  {{- end }}
+  DATABASE_SSL: {{ quote .Values.global.database.ssl }}
   {{- if .Values.global.database.pool_size }}
   DATABASE_POOL_SIZE: {{ quote .Values.global.database.pool_size }}
   {{- end }}
