@@ -63,6 +63,12 @@ spec:
               {{- end }}
             - name: BACKGROUND_JOBS_ENABLED
               value: {{ .Values.domain.backgroundJobsEnabled | quote }}
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NODE_TYPE
+              value: domain
             {{ include "firezone.common" . | nindent 12 }}
             {{ include "firezone.database.auth" . | nindent 12 }}
             {{ include "firezone.secrets" . | nindent 12 }}

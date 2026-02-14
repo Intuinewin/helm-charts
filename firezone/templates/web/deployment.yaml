@@ -65,6 +65,12 @@ spec:
               {{- end }}
             - name: BACKGROUND_JOBS_ENABLED
               value: {{ .Values.web.backgroundJobsEnabled | quote }}
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NODE_TYPE
+              value: portal
             {{ include "firezone.common" . | nindent 12 }}
             {{ include "firezone.database.auth" . | nindent 12 }}
             {{ include "firezone.secrets" . | nindent 12 }}
