@@ -77,8 +77,6 @@ Common env
 {{- end }}
 - name: FEATURE_POLICY_CONDITIONS_ENABLED
   value: {{ quote .Values.global.features.policyConditions.enabled }}
-- name: FEATURE_MULTI_SITE_RESOURCES_ENABLED
-  value: {{ quote .Values.global.features.multiSiteResources.enabled }}
 - name: FEATURE_REST_API_ENABLED
   value: {{ quote .Values.global.features.restApi.enabled }}
 - name: FEATURE_INTERNET_RESOURCE_ENABLED
