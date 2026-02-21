@@ -103,8 +103,6 @@ global:
   features:
     idpSync:
       enabled: true
-    multiSiteResources:
-      enabled: true
     policyConditions:
       enabled: true
     restApi:
