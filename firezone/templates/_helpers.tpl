@@ -107,6 +107,21 @@ Common env secrets
     secretKeyRef:
       name: {{ required "Missing `firezone.phoenix.cookieEncryptionSalt.secret`" .Values.global.phoenix.cookieEncryptionSalt.secret }}
       key: {{ required "Missing `firezone.phoenix.cookieEncryptionSalt.key`" .Values.global.phoenix.cookieEncryptionSalt.key }}
+- name: OPS_COOKIE_SIGNING_SALT
+  valueFrom:
+    secretKeyRef:
+      name: {{ required "Missing `firezone.phoenix.opsCookieSigningSalt.secret`" .Values.global.phoenix.opsCookieSigningSalt.secret }}
+      key: {{ required "Missing `firezone.phoenix.opsCookieSigningSalt.key`" .Values.global.phoenix.opsCookieSigningSalt.key }}
+- name: OPS_SECRET_KEY_BASE
+  valueFrom:
+    secretKeyRef:
+      name: {{ required "Missing `firezone.phoenix.opsSecretKeyBase.secret`" .Values.global.phoenix.opsSecretKeyBase.secret }}
+      key: {{ required "Missing `firezone.phoenix.opsSecretKeyBase.key`" .Values.global.phoenix.opsSecretKeyBase.key }}
+- name: OPS_LIVE_VIEW_SIGNING_SALT
+  valueFrom:
+    secretKeyRef:
+      name: {{ required "Missing `firezone.phoenix.opsLiveViewSigningSalt.secret`" .Values.global.phoenix.opsLiveViewSigningSalt.secret }}
+      key: {{ required "Missing `firezone.phoenix.opsLiveViewSigningSalt.key`" .Values.global.phoenix.opsLiveViewSigningSalt.key }}
 - name: TOKENS_KEY_BASE
   valueFrom:
     secretKeyRef:
@@ -127,4 +142,14 @@ Common env secrets
     secretKeyRef:
       name: {{ required "Missing `firezone.email.opts.secret`" .Values.global.email.opts.secret }}
       key: {{ required "Missing `firezone.email.opts.key`" .Values.global.email.opts.key }}
+- name: OPS_ADMIN_USERNAME
+  valueFrom:
+    secretKeyRef:
+      name: {{ required "Missing `firezone.ops.username.secret`" .Values.global.ops.username.secret }}
+      key: {{ required "Missing `firezone.ops.username.key`" .Values.global.ops.username.key }}
+- name: OPS_ADMIN_PASSWORD
+  valueFrom:
+    secretKeyRef:
+      name: {{ required "Missing `firezone.ops.password.secret`" .Values.global.ops.password.secret }}
+      key: {{ required "Missing `firezone.ops.password.key`" .Values.global.ops.password.key }}
 {{- end }}
