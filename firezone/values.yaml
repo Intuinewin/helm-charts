@@ -71,6 +71,15 @@ global:
     cookieEncryptionSalt:
       secret:
       key: COOKIE_ENCRYPTION_SALT
+    opsCookieSigningSalt:
+      secret:
+      key: OPS_COOKIE_SIGNING_SALT
+    opsSecretKeyBase:
+      secret:
+      key: OPS_SECRET_KEY_BASE
+    opsLiveViewSigningSalt:
+      secret:
+      key: OPS_LIVE_VIEW_SIGNING_SALT
 
   # Firezone tokens secrets
   tokens:
@@ -80,6 +89,14 @@ global:
     salt:
       secret:
       key: TOKENS_SALT
+  
+  ops:
+    username:
+      secret:
+      key: OPS_ADMIN_USERNAME
+    password:
+      secret:
+      key: OPS_ADMIN_PASSWORD
   
   # Email configuration
   # See all possible adapters and configurations
