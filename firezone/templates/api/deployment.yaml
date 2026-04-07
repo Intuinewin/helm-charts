@@ -45,8 +45,6 @@ spec:
           env:
             - name: PHOENIX_HTTP_API_PORT
               value: {{ quote .Values.api.service.targetPort }}
-            - name: HEALTH_PORT
-              value: {{ .Values.api.healthPort | quote }}
             - name: API_EXTERNAL_URL
               value: {{ required "Missing `firezone.externalApiURL`" .Values.global.externalApiURL }}
             - name: WEB_EXTERNAL_URL
@@ -90,8 +88,8 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /healthz
-              port: {{ .Values.api.healthPort }}
+              path: /readyz
+              port: {{ .Values.api.service.targetPort }}
             initialDelaySeconds: {{ .Values.api.livenessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.api.livenessProbe.periodSeconds }}
             timeoutSeconds: {{ .Values.api.livenessProbe.timeoutSeconds }}
@@ -100,7 +98,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /readyz
-              port: {{ .Values.api.healthPort }}
+              port: {{ .Values.api.service.targetPort }}
             initialDelaySeconds: {{ .Values.api.readinessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.api.readinessProbe.periodSeconds }}
             timeoutSeconds: {{ .Values.api.readinessProbe.timeoutSeconds }}

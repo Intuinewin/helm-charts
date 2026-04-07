@@ -188,8 +188,6 @@ web:
     targetPort: 8000
     portName: http
 
-  healthPort: 9001
-
   ingress:
     enabled: false
     className: ""
@@ -297,8 +295,6 @@ api:
     port: 8000
     targetPort: 8000
     portName: http
-
-  healthPort: 9001
 
   ingress:
     enabled: false
