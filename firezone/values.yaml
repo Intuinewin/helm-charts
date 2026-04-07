@@ -153,8 +153,6 @@ web:
   # Only needed if kubernetes cluster module is disabled
   releaseHostname:
 
-  backgroundJobsEnabled: false
-
   podAnnotations: {}
   podLabels: {}
 
@@ -263,8 +261,6 @@ api:
   # Only needed if kubernetes cluster module is disabled
   releaseHostname:
 
-  backgroundJobsEnabled: false
-
   imagePullSecrets: []
 
   podAnnotations: {}
@@ -319,96 +315,6 @@ api:
     #  - secretName: chart-example-tls
     #    hosts:
     #      - chart-example.local
-
-  resources: {}
-
-  autoscaling:
-    enabled: false
-    minReplicas: 1
-    maxReplicas: 100
-    targetCPUUtilizationPercentage: 80
-    # targetMemoryUtilizationPercentage: 80
-
-  volumes: []
-
-  volumeMounts: []
-
-  nodeSelector: {}
-
-  tolerations: []
-
-  affinity: {}
-
-  dnsPolicy: ~
-  dnsConfig: {}
-
-  serviceAccount:
-    # Specifies whether a service account should be created
-    create: true
-    # Automatically mount a ServiceAccount's API credentials?
-    automount: true
-    # Annotations to add to the service account
-    annotations: {}
-    # The name of the service account to use.
-    # If not set and create is true, a name is generated using the fullname template
-    name: ""
-
-  pdb:
-    enabled: false
-    labels: {}
-    annotations: {}
-    minAvailable: ""
-    maxUnavailable: ""
-
-domain:
-  replicaCount: 1
-  revisionHistoryLimit: 10
-
-  image:
-    repository: ghcr.io/firezone/portal
-    pullPolicy: IfNotPresent
-    # Overrides the image tag whose default is the chart appVersion.
-    tag: ""
-
-  extraEnv: []
-  releaseName: firezone
-  # Only needed if kubernetes cluster module is disabled
-  releaseHostname:
-
-  backgroundJobsEnabled: true
-
-  healthPort: 9001
-
-  imagePullSecrets: []
-
-  podAnnotations: {}
-  podLabels: {}
-
-  podSecurityContext: {}
-  # fsGroup: 2000
-
-  securityContext:
-    runAsUser: 1000
-    runAsGroup: 1000
-    allowPrivilegeEscalation: false
-    capabilities:
-      drop:
-        - ALL
-    readOnlyRootFilesystem: false
-
-  livenessProbe:
-    initialDelaySeconds: 0
-    periodSeconds: 10
-    timeoutSeconds: 1
-    failureThreshold: 3
-    successThreshold: 1
-
-  readinessProbe:
-    initialDelaySeconds: 0
-    periodSeconds: 10
-    timeoutSeconds: 1
-    failureThreshold: 3
-    successThreshold: 1
 
   resources: {}
 
