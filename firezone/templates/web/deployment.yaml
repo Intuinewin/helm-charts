@@ -45,8 +45,6 @@ spec:
           env:
             - name: PHOENIX_HTTP_WEB_PORT
               value: {{ quote .Values.web.service.targetPort }}
-            - name: HEALTH_PORT
-              value: {{ .Values.web.healthPort | quote }}
             - name: API_EXTERNAL_URL
               value: {{ required "Missing `firezone.externalApiURL`" .Values.global.externalApiURL }}
             - name: WEB_EXTERNAL_URL
@@ -63,14 +61,10 @@ spec:
               {{- else }}
               value: {{ .Values.web.releaseHostname }}
               {{- end }}
-            - name: BACKGROUND_JOBS_ENABLED
-              value: {{ .Values.web.backgroundJobsEnabled | quote }}
             - name: NODE_NAME
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
-            - name: NODE_TYPE
-              value: portal
             {{ include "firezone.common" . | nindent 12 }}
             {{ include "firezone.database.auth" . | nindent 12 }}
             {{ include "firezone.secrets" . | nindent 12 }}
@@ -92,8 +86,8 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /healthz
-              port: {{ .Values.web.healthPort }}
+              path: /readyz
+              port: {{ .Values.web.service.targetPort }}
             initialDelaySeconds: {{ .Values.web.livenessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.web.livenessProbe.periodSeconds }}
             timeoutSeconds: {{ .Values.web.livenessProbe.timeoutSeconds }}
@@ -102,7 +96,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /readyz
-              port: {{ .Values.web.healthPort }}
+              port: {{ .Values.web.service.targetPort }}
             initialDelaySeconds: {{ .Values.web.readinessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.web.readinessProbe.periodSeconds }}
             timeoutSeconds: {{ .Values.web.readinessProbe.timeoutSeconds }}
