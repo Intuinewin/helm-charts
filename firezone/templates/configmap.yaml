@@ -43,3 +43,5 @@ data:
   ERLANG_CLUSTER_ADAPTER_CONFIG: {{ .Values.global.erlangCluster.custom.opts }}
   {{- end }}
   CLUSTER_DOMAIN: {{ .Values.clusterDomain }}
+  CHANGES_REPLICATION_ENABLED: "true"
+  CHANGE_LOGS_REPLICATION_ENABLED: "true"
