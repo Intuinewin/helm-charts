@@ -14,6 +14,9 @@ global:
   # External HTTP API URL
   # https://api.firezone.domain.tld
   externalApiURL:
+  # Flow Logs HTTP API URL
+  # If unset, defaults to externalApiURL
+  flowLogsApiURL:
 
   # Firezone supports OpenTelemetry for traces.
   otlp:

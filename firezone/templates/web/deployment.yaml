@@ -51,6 +51,8 @@ spec:
               value: {{ required "Missing `firezone.externalWebURL`" .Values.global.externalWebURL }}
             - name: API_URL_OVERRIDE
               value: {{ required "Missing `firezone.externalApiWSURL`" .Values.global.externalApiWSURL }}
+            - name: FLOW_LOGS_API_URL
+              value: {{ .Values.global.flowLogsApiURL | default .Values.global.externalApiURL }}
             - name: RELEASE_NAME
               value: {{ .Values.web.releaseName }}
             - name: RELEASE_HOSTNAME
