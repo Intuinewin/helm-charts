@@ -49,6 +49,8 @@ spec:
               value: {{ required "Missing `firezone.externalApiURL`" .Values.global.externalApiURL }}
             - name: WEB_EXTERNAL_URL
               value: {{ required "Missing `firezone.externalWebURL`" .Values.global.externalWebURL }}
+            - name: FLOW_LOGS_API_URL
+              value: {{ .Values.global.flowLogsApiURL | default .Values.global.externalApiURL }}
             - name: RELEASE_NAME
               {{- if (and .Values.global.erlangCluster.enableKubernetesClusterModule (ne .Values.web.releaseName .Values.api.releaseName)) }}
               {{- required "api and web release names must be identical when using default kubernetes cluster module" "" }}
