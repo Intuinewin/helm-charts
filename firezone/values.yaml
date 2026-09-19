@@ -18,6 +18,8 @@ global:
   # If unset, defaults to externalApiURL
   flowLogsApiURL:
 
+  trustedProxies: []
+
   # Firezone supports OpenTelemetry for traces.
   otlp:
     # Firezone only supports HTTP endpoint

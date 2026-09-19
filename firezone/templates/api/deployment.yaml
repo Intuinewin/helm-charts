@@ -43,8 +43,10 @@ spec:
             - configMapRef:
                 name: {{ include "firezone.fullname" . }}
           env:
-            - name: PHOENIX_HTTP_API_PORT
+            - name: PHOENIX_HTTP_PUBLIC_PORT
               value: {{ quote .Values.api.service.targetPort }}
+            - name: PHOENIX_EXTERNAL_TRUSTED_PROXIES
+              value: {{ .Values.global.trustedProxies | default list | toJson | quote }}
             - name: API_EXTERNAL_URL
               value: {{ required "Missing `firezone.externalApiURL`" .Values.global.externalApiURL }}
             - name: WEB_EXTERNAL_URL
