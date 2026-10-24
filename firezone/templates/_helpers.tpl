@@ -42,6 +42,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
 {{/*
+Create the name of the service account to use
+*/}}
+{{- define "firezone.serviceAccountName" -}}
+{{- if or (.Values.serviceAccount.create) (.Values.global.erlangCluster.enableKubernetesClusterModule) }}
+{{- default (include "firezone.fullname" .) .Values.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.serviceAccount.name }}
+{{- end }}
+{{- end }}
+
+{{/*
 Database env secrets
 */}}
 {{- define "firezone.database.auth" -}}
@@ -69,8 +80,6 @@ Common env
   value: {{ quote .Values.global.features.idpSync.enabled }}
 - name: FEATURE_SIGN_UP_ENABLED
   value: {{ quote .Values.global.signup.enabled }}
-- name: RUN_MANUAL_MIGRATIONS
-  value: {{ quote .Values.global.runManualMigrations }}
 {{- if gt (len .Values.global.signup.whitelistedDomains) 0 }}
 - name: SIGN_UP_WHITELISTED_DOMAINS
   value: {{ join "," .Values.global.signup.whitelistedDomains }}
