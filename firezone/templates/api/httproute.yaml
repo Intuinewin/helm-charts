@@ -1,0 +1,29 @@
+{{- if .Values.api.httpRoute.enabled -}}
+{{- $fullName := include "firezone.api.fullname" . -}}
+{{- $svcPort := .Values.api.service.port -}}
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "firezone.api.labels" . | nindent 4 }}
+  {{- with .Values.api.httpRoute.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- with .Values.api.httpRoute.parentRefs }}
+  parentRefs:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.api.httpRoute.hostnames }}
+  hostnames:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  rules:
+    - matches:
+        {{- toYaml .Values.api.httpRoute.matches | nindent 8 }}
+      backendRefs:
+        - name: {{ $fullName }}
+          port: {{ $svcPort }}
+{{- end }}

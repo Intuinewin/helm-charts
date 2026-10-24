@@ -271,6 +271,17 @@ web:
     #    hosts:
     #      - chart-example.local
 
+  httpRoute:
+    enabled: false
+    annotations: {}
+    parentRefs: []
+    hostnames:
+      - chart-example.local
+    matches:
+      - path:
+          type: PathPrefix
+          value: /
+
   resources: {}
 
   autoscaling:
@@ -383,6 +394,17 @@ api:
     #  - secretName: chart-example-tls
     #    hosts:
     #      - chart-example.local
+
+  httpRoute:
+    enabled: false
+    annotations: {}
+    parentRefs: []
+    hostnames:
+      - chart-example.local
+    matches:
+      - path:
+          type: PathPrefix
+          value: /
 
   resources: {}
 
