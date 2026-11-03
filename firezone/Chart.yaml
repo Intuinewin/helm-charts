@@ -1,8 +1,8 @@
 apiVersion: v2
 name: firezone
-version: 0.55.0
+version: 0.56.0
 # renovate-digest: datasource=custom.firezone-portal depName=portal
-appVersion: 4f2352fd6ee16491985f223ca4660fb33094f8b4
+appVersion: 678463cee187112373552d0fcad2acfbe18214f4
 type: application
 description: A Helm chart for deploying firezone
 icon: https://raw.githubusercontent.com/firezone/firezone/main/website/public/images/logo-main.svg
