@@ -1,6 +1,6 @@
 apiVersion: v2
 name: firezone
-version: 0.55.0
+version: 0.56.0
 # renovate-digest: datasource=custom.firezone-portal depName=portal
 appVersion: 4f2352fd6ee16491985f223ca4660fb33094f8b4
 type: application

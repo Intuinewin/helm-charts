@@ -15,6 +15,7 @@ data:
   {{- end }}
   # Email
   OUTBOUND_EMAIL_ADAPTER: {{ .Values.global.email.adapter }}
+  SECONDARY_OUTBOUND_EMAIL_ADAPTER: {{ .Values.global.email.adapter }}
   OUTBOUND_EMAIL_FROM: {{ .Values.global.email.from }}
   # Database
   DATABASE_HOST: {{ required "Missing `firezone.database.host`" .Values.global.database.host }}
