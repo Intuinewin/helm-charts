@@ -151,6 +151,11 @@ Common env secrets
     secretKeyRef:
       name: {{ required "Missing `firezone.email.opts.secret`" .Values.global.email.opts.secret }}
       key: {{ required "Missing `firezone.email.opts.key`" .Values.global.email.opts.key }}
+- name: SECONDARY_OUTBOUND_EMAIL_ADAPTER_OPTS
+  valueFrom:
+    secretKeyRef:
+      name: {{ required "Missing `firezone.email.opts.secret`" .Values.global.email.opts.secret }}
+      key: {{ required "Missing `firezone.email.opts.key`" .Values.global.email.opts.key }}
 - name: OPS_ADMIN_USERNAME
   valueFrom:
     secretKeyRef:
