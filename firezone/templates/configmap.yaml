@@ -11,7 +11,8 @@ data:
   LOG_LEVEL: {{ .Values.global.logLevel }}
   # OTLP
   {{- if .Values.global.otlp.endpoint }}
-  OTLP_ENDPOINT: {{ .Values.global.otlp.endpoint }}
+  OTLP_TRACES_ENDPOINT: {{ .Values.global.otlp.endpoint }}
+  OTLP_METRICS_ENDPOINT: {{ .Values.global.otlp.endpoint }}
   {{- end }}
   # Email
   OUTBOUND_EMAIL_ADAPTER: {{ .Values.global.email.adapter }}

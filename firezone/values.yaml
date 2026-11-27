@@ -20,7 +20,7 @@ global:
 
   trustedProxies: []
 
-  # Firezone supports OpenTelemetry for traces.
+  # Firezone supports OpenTelemetry for metrics and traces.
   otlp:
     # Firezone only supports HTTP endpoint
     # Example value: http://localhost:4318
